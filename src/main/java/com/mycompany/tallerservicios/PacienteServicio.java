@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
  
 import com.mycompany.tallerservicios.Paciente;
 import com.mycompany.tallerservicios.PacienteDAO;
+import java.net.UnknownHostException;
 /**
  *
  * @author white
@@ -27,8 +28,9 @@ public class PacienteServicio {
     
       @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<Paciente> getEmployees_JSON() {
+    public List<Paciente> getEmployees_JSON() throws UnknownHostException {
         List<Paciente> listOfCountries = PacienteDAO.getAllPacientes();
+        
         return listOfCountries;
     }
     
@@ -37,4 +39,5 @@ public class PacienteServicio {
     public Paciente addPaciente(Paciente emp) {
         return PacienteDAO.addPaciente(emp);
     }
+    
 }

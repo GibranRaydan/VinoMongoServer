@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mycompany.tallerservicios.Paciente;
+import java.net.UnknownHostException;
 
 
 /**
@@ -43,10 +44,13 @@ public class PacienteDAO {
         return emp;
     }
     
-     public static List<Paciente> getAllPacientes() {
+     public static List<Paciente> getAllPacientes() throws UnknownHostException {
         Collection<Paciente> c = empMap.values();
         List<Paciente> list = new ArrayList<Paciente>();
         list.addAll(c);
+        mongo m = new mongo();
+        m.show();
+         System.out.println("llegue");
         return list;
     }
 }
