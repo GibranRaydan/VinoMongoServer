@@ -13,7 +13,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "pacientes")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Paciente {
- 
+    
+    
+   
     private String nombre;
     private String address;
     private String telefono;
@@ -32,8 +34,10 @@ public Paciente() {
         this.telefono = telefono;
         this.fecha = fecha;
         this.contacto = contacto;
+       
     }
 
+   
     public String getNombre() {
         return nombre;
     }

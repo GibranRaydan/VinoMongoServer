@@ -29,7 +29,8 @@ public class PacienteServicio {
       @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public List<Paciente> getEmployees_JSON() throws UnknownHostException {
-        List<Paciente> listOfCountries = PacienteDAO.getAllPacientes();
+         mongo m=new mongo();
+        List<Paciente> listOfCountries = m.show();
         
         return listOfCountries;
     }
@@ -37,7 +38,8 @@ public class PacienteServicio {
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Paciente addPaciente(Paciente emp) {
-        return PacienteDAO.addPaciente(emp);
+        mongo m = new mongo();
+        return m.add(emp);
     }
     
 }

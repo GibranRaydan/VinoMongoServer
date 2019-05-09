@@ -22,18 +22,6 @@ public class PacienteDAO {
     
     private static final Map<String, Paciente> empMap = new HashMap<String, Paciente>();
     
-    static{
-        initEmps();
-    }
-    
-    private static void initEmps() {
-        Paciente emp1 = new Paciente("Gibran", "calle1", "31381131131","121212","31313131");
-        Paciente emp2 = new Paciente("Andres", "calle1", "31381131131","121212","3131313");
- 
-        empMap.put(emp1.getNombre(), emp1);
-        empMap.put(emp2.getNombre(), emp2);
-       
-    }
     
     public static Paciente getPaciente(String nombre) {
         return empMap.get(nombre);
@@ -48,9 +36,7 @@ public class PacienteDAO {
         Collection<Paciente> c = empMap.values();
         List<Paciente> list = new ArrayList<Paciente>();
         list.addAll(c);
-        mongo m = new mongo();
-        m.show();
-         System.out.println("llegue");
+       
         return list;
     }
 }

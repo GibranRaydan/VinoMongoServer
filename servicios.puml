@@ -1,0 +1,52 @@
+@startuml
+annotation javax.ws.rs.GET
+annotation javax.ws.rs.POST
+annotation javax.ws.rs.Path
+annotation javax.ws.rs.Produces
+annotation javax.xml.bind.annotation.XmlAccessorType
+annotation javax.xml.bind.annotation.XmlRootElement
+class com.google.gson.Gson
+class com.mongodb.BasicDBObject
+class com.mongodb.DB
+class com.mongodb.DBCollection
+class com.mongodb.DBCursor
+class com.mongodb.DBObject
+class com.mongodb.MongoClient
+class com.mongodb.client.MongoCollection
+class com.mongodb.client.MongoCursor
+class com.mongodb.client.MongoDatabase
+class com.mongodb.client.model.Projections
+class com.mycompany.tallerservicios.Main
+class com.mycompany.tallerservicios.MyResource
+class com.mycompany.tallerservicios.Paciente
+class com.mycompany.tallerservicios.PacienteDAO
+class com.mycompany.tallerservicios.PacienteServicio
+class com.mycompany.tallerservicios.mongo
+class java.io.IOException
+class java.net.URI
+class java.net.UnknownHostException
+class java.util.ArrayList
+class java.util.Collection
+class java.util.HashMap
+class java.util.List
+class java.util.Map
+class javax.ws.rs.DELETE
+class javax.ws.rs.PUT
+class javax.ws.rs.PathParam
+class javax.ws.rs.core.MediaType
+class javax.xml.bind.annotation.XmlAccessType
+class org.bson.Document
+class org.glassfish.grizzly.http.server.HttpServer
+class org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory
+class org.glassfish.jersey.server.ResourceConfig
+com.mycompany.tallerservicios.MyResource ..> javax.ws.rs.GET
+com.mycompany.tallerservicios.MyResource ..> javax.ws.rs.Path
+com.mycompany.tallerservicios.MyResource ..> javax.ws.rs.Produces
+com.mycompany.tallerservicios.Paciente ..> javax.xml.bind.annotation.XmlAccessorType
+com.mycompany.tallerservicios.Paciente ..> javax.xml.bind.annotation.XmlRootElement
+com.mycompany.tallerservicios.PacienteServicio ..> javax.ws.rs.GET
+com.mycompany.tallerservicios.PacienteServicio ..> javax.ws.rs.POST
+com.mycompany.tallerservicios.PacienteServicio ..> javax.ws.rs.Path
+com.mycompany.tallerservicios.PacienteServicio ..> javax.ws.rs.Produces
+com.mycompany.tallerservicios.mongo ..> com.mongodb.client.model.Projections
+@enduml
