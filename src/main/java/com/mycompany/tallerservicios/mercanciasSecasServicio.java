@@ -16,30 +16,36 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
  
-import com.mycompany.tallerservicios.Paciente;
-import com.mycompany.tallerservicios.PacienteDAO;
+import com.mycompany.tallerservicios.MercanciasSecas;
 import java.net.UnknownHostException;
 /**
  *
  * @author white
  */
-@Path("/pacientes")
-public class PacienteServicio {
+@Path("/mercancias")
+public class mercanciasSecasServicio {
     
       @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<Paciente> getEmployees_JSON() throws UnknownHostException {
+    public List<MercanciasSecas> getMercancias() throws UnknownHostException {
          mongo m=new mongo();
-        List<Paciente> listOfCountries = m.show();
+        List<MercanciasSecas> listOfMercancias = m.show();
         
-        return listOfCountries;
+        return listOfMercancias;
     }
     
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Paciente addPaciente(Paciente emp) {
+    public MercanciasSecas addMercancias(MercanciasSecas emp) {
         mongo m = new mongo();
         return m.add(emp);
+    }
+    
+    @DELETE
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public String deleteAllMercancias() {
+        mongo m = new mongo();
+        return m.deleteAllMercancias();
     }
     
 }

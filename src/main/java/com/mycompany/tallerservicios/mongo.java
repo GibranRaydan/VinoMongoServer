@@ -34,19 +34,19 @@ public class mongo {
     private final static String HOST = "localhost";
     private final static int PORT = 27017;
 
-    public Paciente add(Paciente a) {
+    public MercanciasSecas add(MercanciasSecas a) {
         try {
 
             MongoClient mongoClient = new MongoClient(HOST, PORT);
 
-            DB db = mongoClient.getDB("monRequi");
+            DB db = mongoClient.getDB("trazabilidad");
 
-            DBCollection coll = db.getCollection("pacientes");
-            DBObject doc = new BasicDBObject("nombre", a.getNombre())
-                    .append("telefono", a.getTelefono())
-                    .append("contacto", a.getContacto())
-                    .append("address", a.getAddress())
-                    .append("fecha", a.getFecha());
+            DBCollection coll = db.getCollection("mercanciasSecas");
+            DBObject doc = new BasicDBObject("serial", a.getSerial())
+                    .append("tipo", a.getTipo())
+                    .append("serie", a.getSerie())
+                    .append("lote", a.getLote())
+                    .append("cantidad", a.getCantidad());
 
             coll.insert(doc);
 
@@ -57,39 +57,49 @@ public class mongo {
         return a;
     }
 
-    public List<Paciente> show() throws UnknownHostException {
+    public List<MercanciasSecas> show() throws UnknownHostException {
         MongoClient mongoClient = new MongoClient(HOST, PORT);
-        
-           Map<String, Paciente> empMap = new HashMap<String, Paciente>();
-            MongoDatabase database = mongoClient.getDatabase("monRequi");
 
-           MongoCollection<Document> collection = database.getCollection("pacientes");
+        Map<String, MercanciasSecas> empMap = new HashMap<String, MercanciasSecas>();
+        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
-           MongoCursor<Document> cursor = collection.find().projection(Projections.excludeId()).iterator();
-         
+        MongoCollection<Document> collection = database.getCollection("mercanciasSecas");
+
+        MongoCursor<Document> cursor = collection.find().projection(Projections.excludeId()).iterator();
 
         try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
-                Paciente c = gson.fromJson(doc.toJson(), Paciente.class);
-                System.out.println(c.getNombre());
-                System.out.println(c.getAddress());
-                System.out.println(c.getFecha());
-                System.out.println(c.getTelefono());
-                System.out.println(c.getContacto());
-                empMap.put(c.getNombre(),c);
+                MercanciasSecas c = gson.fromJson(doc.toJson(), MercanciasSecas.class);
+                System.out.println(c.getSerial());
+                System.out.println(c.getTipo());
+                System.out.println(c.getSerie());
+                System.out.println(c.getLote());
+                System.out.println(c.getCantidad());
+                empMap.put(c.getTipo(), c);
             }
 
         } finally {
             cursor.close();
         }
-        
-        Collection<Paciente> c = empMap.values();
-        List<Paciente> list = new ArrayList<Paciente>();
+
+        Collection<MercanciasSecas> c = empMap.values();
+        List<MercanciasSecas> list = new ArrayList<MercanciasSecas>();
         list.addAll(c);
         return list;
-        
+
+    }
+
+    public String deleteAllMercancias() {
+        System.out.println("leeeasdadasdasdasssssssssssssssssssssssss");
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        DB db = mongoClient.getDB("trazabilidad");
+        DBCollection coll = db.getCollection("mercanciasSecas");
+        DBObject doc = coll.findOne();
+        coll.remove(doc);
+
+        return "borrado todo";
     }
 
 }
