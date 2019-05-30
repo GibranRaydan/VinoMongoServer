@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.tallerservicios;
+package com.mycompany.dao;
 
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
@@ -16,6 +16,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Projections;
+import com.mycompany.model.MercanciasSecas;
 import static com.mongodb.client.model.Projections.excludeId;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import org.bson.Document;
  *
  * @author white
  */
-public class mongo {
+public class MercanciasSecasDAO {
 
     private final static String HOST = "localhost";
     private final static int PORT = 27017;

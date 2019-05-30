@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.tallerservicios;
+package com.mycompany.controller;
 
+import com.mycompany.dao.MercanciasSecasDAO;
 import java.util.List;
  
 import javax.ws.rs.DELETE;
@@ -16,19 +17,20 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
  
-import com.mycompany.tallerservicios.MercanciasSecas;
+import com.mycompany.model.MercanciasSecas;
+
 import java.net.UnknownHostException;
 /**
  *
  * @author white
  */
 @Path("/mercancias")
-public class mercanciasSecasServicio {
+public class MercanciasSecasServicio {
     
       @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public List<MercanciasSecas> getMercancias() throws UnknownHostException {
-         mongo m=new mongo();
+         MercanciasSecasDAO m=new MercanciasSecasDAO();
         List<MercanciasSecas> listOfMercancias = m.show();
         
         return listOfMercancias;
@@ -37,14 +39,14 @@ public class mercanciasSecasServicio {
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public MercanciasSecas addMercancias(MercanciasSecas emp) {
-        mongo m = new mongo();
+        MercanciasSecasDAO m = new MercanciasSecasDAO();
         return m.add(emp);
     }
     
     @DELETE
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public String deleteAllMercancias() {
-        mongo m = new mongo();
+        MercanciasSecasDAO m = new MercanciasSecasDAO();
         return m.deleteAllMercancias();
     }
     
