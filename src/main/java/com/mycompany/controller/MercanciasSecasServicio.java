@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import com.mycompany.model.MercanciasSecas;
 
 import java.net.UnknownHostException;
+import java.time.Clock;
 /**
  *
  * @author white
@@ -29,6 +30,7 @@ public class MercanciasSecasServicio {
     
       @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    
     public List<MercanciasSecas> getMercancias() throws UnknownHostException {
          MercanciasSecasDAO m=new MercanciasSecasDAO();
         List<MercanciasSecas> listOfMercancias = m.show();
@@ -38,16 +40,29 @@ public class MercanciasSecasServicio {
     
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public MercanciasSecas addMercancias(MercanciasSecas emp) {
+    public MercanciasSecas addMercancias(MercanciasSecas merca) {
         MercanciasSecasDAO m = new MercanciasSecasDAO();
-        return m.add(emp);
+        return m.add(merca);
     }
     
     @DELETE
+    @Path("/{tipo}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public String deleteAllMercancias() {
         MercanciasSecasDAO m = new MercanciasSecasDAO();
         return m.deleteAllMercancias();
     }
+    
+    @GET
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    
+    public List<MercanciasSecas> getOneMercancia() throws UnknownHostException {
+         MercanciasSecasDAO m=new MercanciasSecasDAO();
+        List<MercanciasSecas> listOfMercancias = m.show();
+        
+        return listOfMercancias;
+    }
+    
+    
     
 }
