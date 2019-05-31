@@ -5,6 +5,7 @@
  */
 package com.mycompany.controller;
 
+import com.google.gson.Gson;
 import com.mycompany.dao.agenteDAO;
 import com.mycompany.model.agente;
 import java.util.List;
@@ -29,11 +30,12 @@ public class agenteServicio {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<agente> getVinedo() throws UnknownHostException {
+    public String getVinedo() throws UnknownHostException {
         agenteDAO m = new agenteDAO();
         List<agente> listOfCountries = m.showAll();
-        return listOfCountries;
-
+       Gson gson = new Gson();
+        String toJson="{\"agentes\":"+gson.toJson(listOfCountries)+"}";
+        return toJson;
     }
 
     @POST
@@ -49,12 +51,12 @@ public class agenteServicio {
     @GET
     @Path("/{nombre}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<agente> getOneVinedo(@PathParam("nombre") String nombre) throws UnknownHostException {
+    public agente getOneVinedo(@PathParam("nombre") String nombre) throws UnknownHostException {
         agenteDAO m = new agenteDAO();
         agente emp = new agente();
         emp.setNombre(nombre);
         List<agente> listOfCountries = m.showOne(emp);
-        return listOfCountries;
+        return listOfCountries.get(0);
     }
 
 }

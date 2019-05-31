@@ -5,6 +5,7 @@
  */
 package com.mycompany.controller;
 
+import com.google.gson.Gson;
 import com.mycompany.model.RegistroLlegada;
 import com.mycompany.dao.RegistroLlegadaDAO;
 import java.net.UnknownHostException;
@@ -25,11 +26,12 @@ public class RegistroLlegadaServicio {
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     
-    public List<RegistroLlegada> getRegistro() throws UnknownHostException {
+    public String getRegistro() throws UnknownHostException {
         RegistroLlegadaDAO m = new RegistroLlegadaDAO();
         List<RegistroLlegada> listOfRegistros = m.show();
-        
-        return listOfRegistros;
+       Gson gson = new Gson();
+        String toJson="{\"registroLlegada\":"+gson.toJson(listOfRegistros)+"}";
+        return toJson;
     }
     
     @POST
@@ -42,12 +44,12 @@ public class RegistroLlegadaServicio {
      @GET
     @Path("/{qrProducto}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<RegistroLlegada> getOneMercancia(@PathParam("qrProducto") String qrProducto) throws UnknownHostException {
+    public RegistroLlegada getOneMercancia(@PathParam("qrProducto") String qrProducto) throws UnknownHostException {
          RegistroLlegadaDAO m=new RegistroLlegadaDAO();
          RegistroLlegada emp=new RegistroLlegada();
          emp.setQrProducto(qrProducto);
          System.out.println("no este");
              List<RegistroLlegada> listOfRegistro = m.showOne(emp);
-            return listOfRegistro;
+            return listOfRegistro.get(0);
     }
 }

@@ -5,6 +5,7 @@
  */
 package com.mycompany.controller;
 
+import com.google.gson.Gson;
 import com.mycompany.dao.productoLlegadaDAO;
 import com.mycompany.model.productoLlegada;
 import java.util.List;
@@ -29,10 +30,12 @@ public class productoLlegadaServicio {
       
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<productoLlegada> getVineSF() throws UnknownHostException {
+    public String getVineSF() throws UnknownHostException {
         productoLlegadaDAO m = new productoLlegadaDAO();
         List<productoLlegada> listOfCountries = m.showAll();
-        return listOfCountries;
+        Gson gson = new Gson();
+        String toJson="{\"productoLlegada\":"+gson.toJson(listOfCountries)+"}";
+        return toJson;
 
     }
 
@@ -48,11 +51,11 @@ public class productoLlegadaServicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<productoLlegada> getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
+    public productoLlegada getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
         productoLlegadaDAO m = new productoLlegadaDAO();
         productoLlegada emp = new productoLlegada();
         emp.setNewCodigo(codigo);
         List<productoLlegada> listOfCountries = m.showOne(emp);
-        return listOfCountries;
+        return listOfCountries.get(0);
     }
 }

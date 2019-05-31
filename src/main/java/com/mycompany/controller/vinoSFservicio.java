@@ -11,6 +11,7 @@ package com.mycompany.controller;
  */
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.google.gson.Gson;
 import com.mycompany.dao.vinoSFDAO;
 import com.mycompany.model.vinoSF;
 import java.util.List;
@@ -33,10 +34,12 @@ public class vinoSFservicio {
     
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinoSF> getVineSF() throws UnknownHostException {
+    public String getVineSF() throws UnknownHostException {
         vinoSFDAO m = new vinoSFDAO();
         List<vinoSF> listOfCountries = m.showAll();
-        return listOfCountries;
+        Gson gson = new Gson();
+        String toJson="{\"vinoSF\":"+gson.toJson(listOfCountries)+"}";
+        return toJson;
 
     }
 
@@ -52,12 +55,12 @@ public class vinoSFservicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinoSF> getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
+    public vinoSF getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
         vinoSFDAO m = new vinoSFDAO();
         vinoSF emp = new vinoSF();
         emp.setNewCodigo(codigo);
         List<vinoSF> listOfCountries = m.showOne(emp);
-        return listOfCountries;
+        return listOfCountries.get(0);
     }
     
     

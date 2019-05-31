@@ -5,6 +5,7 @@
  */
 package com.mycompany.controller;
 
+import com.google.gson.Gson;
 import com.mycompany.dao.MercanciasSecasDAO;
 import java.util.List;
  
@@ -31,11 +32,12 @@ public class MercanciasSecasServicio {
       @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     
-    public List<MercanciasSecas> getMercancias() throws UnknownHostException {
+    public String getMercancias() throws UnknownHostException {
          MercanciasSecasDAO m=new MercanciasSecasDAO();
         List<MercanciasSecas> listOfMercancias = m.show();
-        
-        return listOfMercancias;
+        Gson gson = new Gson();
+        String toJson="{\"mercancias\":"+gson.toJson(listOfMercancias)+"}";
+        return toJson;
     }
     
     @POST
@@ -55,13 +57,13 @@ public class MercanciasSecasServicio {
     @GET
     @Path("/{tipo}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<MercanciasSecas> getOneMercancia(@PathParam("tipo") String tipo) throws UnknownHostException {
+    public MercanciasSecas getOneMercancia(@PathParam("tipo") String tipo) throws UnknownHostException {
          MercanciasSecasDAO m=new MercanciasSecasDAO();
          MercanciasSecas emp=new MercanciasSecas();
          emp.setTipo(tipo);
          System.out.println("no este");
              List<MercanciasSecas> listOfMercancias = m.showOne(emp);
-            return listOfMercancias;
+            return listOfMercancias.get(0);
     }
     
     

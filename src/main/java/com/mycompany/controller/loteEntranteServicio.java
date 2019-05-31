@@ -6,7 +6,9 @@
 package com.mycompany.controller;
 
 
+import com.google.gson.Gson;
 import com.mycompany.dao.loteEntranteDAO;
+import com.mycompany.model.MercanciasSecas;
 import com.mycompany.model.loteEntrante;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -26,11 +28,12 @@ public class loteEntranteServicio {
     
      @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<loteEntrante> getAllLoteEntrante() throws UnknownHostException {
-         loteEntranteDAO m=new loteEntranteDAO();
-        List<loteEntrante> list = m.getAllLoteEntrante();
-        
-        return list;
+    public String getAllLoteEntrante() throws UnknownHostException {
+         loteEntranteDAO m= new loteEntranteDAO();
+         List<loteEntrante> listOfLotes = m.getAllLoteEntrante();
+       Gson gson = new Gson();
+        String toJson="{\"loteEntrante\":"+gson.toJson(m)+"}";
+        return toJson;
     }
     
     @POST
@@ -44,12 +47,12 @@ public class loteEntranteServicio {
     @GET
     @Path("/{qr}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<loteEntrante> getOneMercancia(@PathParam("qr") String qr) throws UnknownHostException {
+    public loteEntrante getOneMercancia(@PathParam("qr") String qr) throws UnknownHostException {
          loteEntranteDAO m=new loteEntranteDAO();
          loteEntrante emp=new loteEntrante();
          emp.setQr(qr);
          System.out.println("no este");
              List<loteEntrante> listOfLote = m.showOne(emp);
-            return listOfLote;
+            return listOfLote.get(0);
     }
 }

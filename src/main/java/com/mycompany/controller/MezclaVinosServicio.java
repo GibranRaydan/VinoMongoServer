@@ -5,6 +5,7 @@
  */
 package com.mycompany.controller;
 
+import com.google.gson.Gson;
 import com.mycompany.dao.MercanciasSecasDAO;
 import com.mycompany.dao.MezclaVinosDAO;
 import com.mycompany.dao.loteEntranteDAO;
@@ -29,11 +30,12 @@ public class MezclaVinosServicio {
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     
-    public List<MezclaVinos> getMezclas() throws UnknownHostException {
+    public String getMezclas() throws UnknownHostException {
          MezclaVinosDAO m=new MezclaVinosDAO();
         List<MezclaVinos> listOfMezclas = m.show();
-        
-        return listOfMezclas;
+        Gson gson = new Gson();
+        String toJson="{\"mezclasVinos\":"+gson.toJson(listOfMezclas)+"}";
+        return toJson;
     }
      @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -45,12 +47,12 @@ public class MezclaVinosServicio {
     @GET
     @Path("/{qrMezcla}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<MezclaVinos> getOneMercancia(@PathParam("qrMezcla") String qrMezcla) throws UnknownHostException {
+    public MezclaVinos getOneMercancia(@PathParam("qrMezcla") String qrMezcla) throws UnknownHostException {
          MezclaVinosDAO m=new MezclaVinosDAO();
          MezclaVinos emp=new MezclaVinos();
          emp.setQrMezcla(qrMezcla);
          System.out.println("no este");
              List<MezclaVinos> listOfLote = m.showOne(emp);
-            return listOfLote;
+            return listOfLote.get(0);
     }
 }

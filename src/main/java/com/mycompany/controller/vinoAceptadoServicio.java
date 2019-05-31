@@ -10,6 +10,7 @@ package com.mycompany.controller;
  * @author sgome
  */
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.google.gson.Gson;
 import com.mycompany.dao.vinoAceptadoDAO;
 import com.mycompany.model.vinoAceptado;
 import java.util.List;
@@ -26,16 +27,17 @@ import java.net.UnknownHostException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 
-
 @Path("/vinoaceptado")
 public class vinoAceptadoServicio {
-    
+
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinoAceptado> getVinoA() throws UnknownHostException {
+    public String getVinoA() throws UnknownHostException {
         vinoAceptadoDAO m = new vinoAceptadoDAO();
         List<vinoAceptado> listOfCountries = m.showAll();
-        return listOfCountries;
+        Gson gson = new Gson();
+        String toJson = "{\"vinoaceptado\":" + gson.toJson(listOfCountries) + "}";
+        return toJson;
 
     }
 
@@ -52,13 +54,12 @@ public class vinoAceptadoServicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinoAceptado> getOneVinoA(@PathParam("codigo") String codigo) throws UnknownHostException {
+    public vinoAceptado getOneVinoA(@PathParam("codigo") String codigo) throws UnknownHostException {
         vinoAceptadoDAO m = new vinoAceptadoDAO();
         vinoAceptado emp = new vinoAceptado();
         emp.setCodigo(codigo);
         List<vinoAceptado> listOfCountries = m.showOne(emp);
-        return listOfCountries;
+        return listOfCountries.get(0);
     }
-    
-    
+
 }

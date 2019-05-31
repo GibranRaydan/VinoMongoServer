@@ -10,6 +10,7 @@ package com.mycompany.controller;
  * @author sgome
  */
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.google.gson.Gson;
 import com.mycompany.dao.productoFinalDAO;
 import com.mycompany.model.productoFinal;
 import java.util.List;
@@ -32,10 +33,12 @@ public class productoFinalServicio {
      
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<productoFinal> getVineSF() throws UnknownHostException {
+    public String getVineSF() throws UnknownHostException {
         productoFinalDAO m = new productoFinalDAO();
         List<productoFinal> listOfCountries = m.showAll();
-        return listOfCountries;
+        Gson gson = new Gson();
+        String toJson="{\"productoFinal\":"+gson.toJson(listOfCountries)+"}";
+        return toJson;
 
     }
 
@@ -51,12 +54,12 @@ public class productoFinalServicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<productoFinal> getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
+    public productoFinal getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
         productoFinalDAO m = new productoFinalDAO();
         productoFinal emp = new productoFinal();
         emp.setNewCodigo(codigo);
         List<productoFinal> listOfCountries = m.showOne(emp);
-        return listOfCountries;
+        return listOfCountries.get(0);
     }
     
 }

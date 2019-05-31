@@ -5,6 +5,7 @@
  */
 package com.mycompany.controller;
 
+import com.google.gson.Gson;
 import com.mycompany.dao.MercanciasSecasDAO;
 import com.mycompany.dao.RecoleccionUvasDAO;
 import com.mycompany.model.MercanciasSecas;
@@ -28,11 +29,12 @@ public class RecoleccionUvasServicio {
       @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     
-    public List<RecoleccionUvas> getRecoleccionUvas() throws UnknownHostException {
+    public String getRecoleccionUvas() throws UnknownHostException {
          RecoleccionUvasDAO m=new RecoleccionUvasDAO();
         List<RecoleccionUvas> listOfUvas = m.show();
-        
-        return listOfUvas;
+        Gson gson = new Gson();
+        String toJson="{\"recoleccionUvas\":"+gson.toJson(listOfUvas)+"}";
+        return toJson;
     }
     
      @POST
@@ -45,13 +47,13 @@ public class RecoleccionUvasServicio {
      @GET
     @Path("/{fecha}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<RecoleccionUvas> getOneRecoleccionUva(@PathParam("fecha") String fecha) throws UnknownHostException {
+    public RecoleccionUvas getOneRecoleccionUva(@PathParam("fecha") String fecha) throws UnknownHostException {
          RecoleccionUvasDAO m=new RecoleccionUvasDAO();
          RecoleccionUvas emp=new RecoleccionUvas();
          emp.setFecha(fecha);
          System.out.println("no este");
              List<RecoleccionUvas> listOfUvas = m.showOne(emp);
-            return listOfUvas;
+            return listOfUvas.get(0);
     }
     
 }
