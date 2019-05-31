@@ -46,7 +46,6 @@ public class MercanciasSecasServicio {
     }
     
     @DELETE
-    @Path("/{tipo}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public String deleteAllMercancias() {
         MercanciasSecasDAO m = new MercanciasSecasDAO();
@@ -54,13 +53,15 @@ public class MercanciasSecasServicio {
     }
     
     @GET
+    @Path("/{tipo}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    
-    public List<MercanciasSecas> getOneMercancia() throws UnknownHostException {
+    public List<MercanciasSecas> getOneMercancia(@PathParam("tipo") String tipo) throws UnknownHostException {
          MercanciasSecasDAO m=new MercanciasSecasDAO();
-        List<MercanciasSecas> listOfMercancias = m.show();
-        
-        return listOfMercancias;
+         MercanciasSecas emp=new MercanciasSecas();
+         emp.setTipo(tipo);
+         System.out.println("no este");
+             List<MercanciasSecas> listOfMercancias = m.showOne(emp);
+            return listOfMercancias;
     }
     
     

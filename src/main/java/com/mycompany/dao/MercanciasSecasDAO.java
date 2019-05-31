@@ -41,6 +41,7 @@ public class MercanciasSecasDAO {
 
     private final static String HOST = "localhost";
     private final static int PORT = 27017;
+     MongoClient mongoClient = new MongoClient(HOST, PORT);
 
     public MercanciasSecas add(MercanciasSecas a) {
 
@@ -101,16 +102,30 @@ public class MercanciasSecasDAO {
 
     }
 
-    public DBObject findDocumentByTipo(String tipo) {
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        DB db = mongoClient.getDB("trazabilidad");
-        DBCollection coll = db.getCollection("mercanciasSecas");
+    public List<MercanciasSecas> showOne(MercanciasSecas emp) throws UnknownHostException {
+        Map<String, MercanciasSecas> empMap = new HashMap<String, MercanciasSecas>();
+     
+        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
-        BasicDBObject query = new BasicDBObject();
-        query.put("tipo", new ObjectId(tipo));
+        MongoCollection<Document> collection = database.getCollection("mercanciasSecas");
+        MongoCursor<Document> cursor  = collection.find(eq("tipo", emp.getTipo())).projection(Projections.excludeId()).iterator();
+        try {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                Gson gson = new Gson();
+                MercanciasSecas c = gson.fromJson(doc.toJson(), MercanciasSecas.class);
+                empMap.put(c.getTipo(), c);
+            }
 
-        DBObject dbObj = coll.findOne(query);
-        return dbObj;
+        } finally {
+            cursor.close();
+        }
+
+        Collection<MercanciasSecas> c = empMap.values();
+        List<MercanciasSecas> list = new ArrayList<MercanciasSecas>();
+        list.addAll(c);
+        return list;
+
     }
 
     public String deleteAllMercancias() {
