@@ -5,9 +5,13 @@
  */
 package com.mycompany.controller;
 
+/**
+ *
+ * @author sgome
+ */
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.mycompany.dao.vinedosDAO;
-import com.mycompany.model.vinedo;
+import com.mycompany.dao.vinoAceptadoDAO;
+import com.mycompany.model.vinoAceptado;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -22,18 +26,15 @@ import java.net.UnknownHostException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 
-/**
- *
- * @author white
- */
-@Path("/vinedo")
-public class vinedoServicio {
 
+@Path("/vinoaceptado")
+public class vinoAceptadoServicio {
+    
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getVinedo() throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        List<vinedo> listOfCountries = m.showAll();
+    public List<vinoAceptado> getVinoA() throws UnknownHostException {
+        vinoAceptadoDAO m = new vinoAceptadoDAO();
+        List<vinoAceptado> listOfCountries = m.showAll();
         return listOfCountries;
 
     }
@@ -41,9 +42,9 @@ public class vinedoServicio {
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
-    public vinedo addVinedo(vinedo emp) {
-        vinedosDAO m = new vinedosDAO();
-        System.out.println(emp.getNombre());
+    public vinoAceptado addVinoA(vinoAceptado emp) {
+        vinoAceptadoDAO m = new vinoAceptadoDAO();
+        System.out.println(emp.getCodigo());
         m.add(emp);
         return emp;
     }
@@ -51,15 +52,13 @@ public class vinedoServicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getOneVinedo(@PathParam("codigo") String codigo) throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        vinedo emp = new vinedo();
+    public List<vinoAceptado> getOneVinoA(@PathParam("codigo") String codigo) throws UnknownHostException {
+        vinoAceptadoDAO m = new vinoAceptadoDAO();
+        vinoAceptado emp = new vinoAceptado();
         emp.setCodigo(codigo);
-        List<vinedo> listOfCountries = m.showOne(emp);
+        List<vinoAceptado> listOfCountries = m.showOne(emp);
         return listOfCountries;
     }
     
     
-   
-
 }

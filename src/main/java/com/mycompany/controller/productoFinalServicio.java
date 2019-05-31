@@ -5,9 +5,13 @@
  */
 package com.mycompany.controller;
 
+/**
+ *
+ * @author sgome
+ */
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.mycompany.dao.vinedosDAO;
-import com.mycompany.model.vinedo;
+import com.mycompany.dao.productoFinalDAO;
+import com.mycompany.model.productoFinal;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -22,18 +26,15 @@ import java.net.UnknownHostException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 
-/**
- *
- * @author white
- */
-@Path("/vinedo")
-public class vinedoServicio {
-
+@Path("/productoFinal")
+public class productoFinalServicio {
+    
+     
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getVinedo() throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        List<vinedo> listOfCountries = m.showAll();
+    public List<productoFinal> getVineSF() throws UnknownHostException {
+        productoFinalDAO m = new productoFinalDAO();
+        List<productoFinal> listOfCountries = m.showAll();
         return listOfCountries;
 
     }
@@ -41,9 +42,8 @@ public class vinedoServicio {
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
-    public vinedo addVinedo(vinedo emp) {
-        vinedosDAO m = new vinedosDAO();
-        System.out.println(emp.getNombre());
+    public productoFinal addVineSF(productoFinal emp) {
+        productoFinalDAO m = new productoFinalDAO();
         m.add(emp);
         return emp;
     }
@@ -51,15 +51,12 @@ public class vinedoServicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getOneVinedo(@PathParam("codigo") String codigo) throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        vinedo emp = new vinedo();
-        emp.setCodigo(codigo);
-        List<vinedo> listOfCountries = m.showOne(emp);
+    public List<productoFinal> getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
+        productoFinalDAO m = new productoFinalDAO();
+        productoFinal emp = new productoFinal();
+        emp.setNewCodigo(codigo);
+        List<productoFinal> listOfCountries = m.showOne(emp);
         return listOfCountries;
     }
     
-    
-   
-
 }
