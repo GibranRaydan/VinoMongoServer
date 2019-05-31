@@ -5,9 +5,8 @@
  */
 package com.mycompany.controller;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.mycompany.dao.vinedosDAO;
-import com.mycompany.model.vinedo;
+import com.mycompany.dao.productoLlegadaDAO;
+import com.mycompany.model.productoLlegada;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -21,19 +20,18 @@ import javax.ws.rs.core.MediaType;
 import java.net.UnknownHostException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
-
 /**
  *
- * @author white
+ * @author sgome
  */
-@Path("/vinedo")
-public class vinedoServicio {
-
+@Path("/productoLlegada")
+public class productoLlegadaServicio {
+      
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getVinedo() throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        List<vinedo> listOfCountries = m.showAll();
+    public List<productoLlegada> getVineSF() throws UnknownHostException {
+        productoLlegadaDAO m = new productoLlegadaDAO();
+        List<productoLlegada> listOfCountries = m.showAll();
         return listOfCountries;
 
     }
@@ -41,9 +39,8 @@ public class vinedoServicio {
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
-    public vinedo addVinedo(vinedo emp) {
-        vinedosDAO m = new vinedosDAO();
-        System.out.println(emp.getNombre());
+    public productoLlegada addVineSF(productoLlegada emp) {
+        productoLlegadaDAO m = new productoLlegadaDAO();
         m.add(emp);
         return emp;
     }
@@ -51,15 +48,11 @@ public class vinedoServicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getOneVinedo(@PathParam("codigo") String codigo) throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        vinedo emp = new vinedo();
-        emp.setCodigo(codigo);
-        List<vinedo> listOfCountries = m.showOne(emp);
+    public List<productoLlegada> getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
+        productoLlegadaDAO m = new productoLlegadaDAO();
+        productoLlegada emp = new productoLlegada();
+        emp.setNewCodigo(codigo);
+        List<productoLlegada> listOfCountries = m.showOne(emp);
         return listOfCountries;
     }
-    
-    
-   
-
 }

@@ -5,9 +5,8 @@
  */
 package com.mycompany.controller;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.mycompany.dao.vinedosDAO;
-import com.mycompany.model.vinedo;
+import com.mycompany.dao.agenteDAO;
+import com.mycompany.model.agente;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -20,20 +19,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.net.UnknownHostException;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.QueryParam;
 
 /**
  *
- * @author white
+ * @author sgome
  */
-@Path("/vinedo")
-public class vinedoServicio {
+@Path("/agentes")
+public class agenteServicio {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getVinedo() throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        List<vinedo> listOfCountries = m.showAll();
+    public List<agente> getVinedo() throws UnknownHostException {
+        agenteDAO m = new agenteDAO();
+        List<agente> listOfCountries = m.showAll();
         return listOfCountries;
 
     }
@@ -41,25 +39,22 @@ public class vinedoServicio {
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
-    public vinedo addVinedo(vinedo emp) {
-        vinedosDAO m = new vinedosDAO();
+    public agente addVinedo(agente emp) {
+        agenteDAO m = new agenteDAO();
         System.out.println(emp.getNombre());
         m.add(emp);
         return emp;
     }
 
     @GET
-    @Path("/{codigo}")
+    @Path("/{nombre}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getOneVinedo(@PathParam("codigo") String codigo) throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        vinedo emp = new vinedo();
-        emp.setCodigo(codigo);
-        List<vinedo> listOfCountries = m.showOne(emp);
+    public List<agente> getOneVinedo(@PathParam("nombre") String nombre) throws UnknownHostException {
+        agenteDAO m = new agenteDAO();
+        agente emp = new agente();
+        emp.setNombre(nombre);
+        List<agente> listOfCountries = m.showOne(emp);
         return listOfCountries;
     }
-    
-    
-   
 
 }

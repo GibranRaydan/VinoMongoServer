@@ -5,9 +5,14 @@
  */
 package com.mycompany.controller;
 
+/**
+ *
+ * @author sgome
+ */
+
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.mycompany.dao.vinedosDAO;
-import com.mycompany.model.vinedo;
+import com.mycompany.dao.vinoSFDAO;
+import com.mycompany.model.vinoSF;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -22,18 +27,15 @@ import java.net.UnknownHostException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 
-/**
- *
- * @author white
- */
-@Path("/vinedo")
-public class vinedoServicio {
-
+@Path("/vinoSF")
+public class vinoSFservicio {
+    
+    
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getVinedo() throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        List<vinedo> listOfCountries = m.showAll();
+    public List<vinoSF> getVineSF() throws UnknownHostException {
+        vinoSFDAO m = new vinoSFDAO();
+        List<vinoSF> listOfCountries = m.showAll();
         return listOfCountries;
 
     }
@@ -41,9 +43,8 @@ public class vinedoServicio {
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
-    public vinedo addVinedo(vinedo emp) {
-        vinedosDAO m = new vinedosDAO();
-        System.out.println(emp.getNombre());
+    public vinoSF addVineSF(vinoSF emp) {
+        vinoSFDAO m = new vinoSFDAO();
         m.add(emp);
         return emp;
     }
@@ -51,15 +52,14 @@ public class vinedoServicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getOneVinedo(@PathParam("codigo") String codigo) throws UnknownHostException {
-        vinedosDAO m = new vinedosDAO();
-        vinedo emp = new vinedo();
-        emp.setCodigo(codigo);
-        List<vinedo> listOfCountries = m.showOne(emp);
+    public List<vinoSF> getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
+        vinoSFDAO m = new vinoSFDAO();
+        vinoSF emp = new vinoSF();
+        emp.setNewCodigo(codigo);
+        List<vinoSF> listOfCountries = m.showOne(emp);
         return listOfCountries;
     }
     
     
-   
-
+    
 }
