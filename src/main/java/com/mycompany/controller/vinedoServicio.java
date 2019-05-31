@@ -6,6 +6,7 @@
 package com.mycompany.controller;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.google.gson.Gson;
 import com.mycompany.dao.vinedosDAO;
 import com.mycompany.model.vinedo;
 import java.util.List;
@@ -31,13 +32,15 @@ public class vinedoServicio {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getVinedo() throws UnknownHostException {
+    public String getVinedo() throws UnknownHostException {
         vinedosDAO m = new vinedosDAO();
         List<vinedo> listOfCountries = m.showAll();
-        return listOfCountries;
+        Gson gson = new Gson();
+        String toJson="{\"vinedos\":"+gson.toJson(listOfCountries)+"}";
+        return toJson;
 
     }
-
+    
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -51,12 +54,12 @@ public class vinedoServicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<vinedo> getOneVinedo(@PathParam("codigo") String codigo) throws UnknownHostException {
+    public vinedo getOneVinedo(@PathParam("codigo") String codigo) throws UnknownHostException {
         vinedosDAO m = new vinedosDAO();
         vinedo emp = new vinedo();
         emp.setCodigo(codigo);
         List<vinedo> listOfCountries = m.showOne(emp);
-        return listOfCountries;
+        return listOfCountries.get(0);
     }
     
     
