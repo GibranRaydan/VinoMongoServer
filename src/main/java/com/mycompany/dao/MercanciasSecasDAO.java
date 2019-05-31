@@ -15,9 +15,12 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Projections;
 import com.mycompany.model.MercanciasSecas;
 import static com.mongodb.client.model.Projections.excludeId;
+import com.mongodb.client.result.DeleteResult;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,6 +28,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
+import static org.glassfish.hk2.utilities.reflection.Pretty.collection;
+import static org.glassfish.jersey.internal.util.Pretty.collection;
 
 /**
  *
@@ -34,8 +41,10 @@ public class MercanciasSecasDAO {
 
     private final static String HOST = "localhost";
     private final static int PORT = 27017;
+     MongoClient mongoClient = new MongoClient(HOST, PORT);
 
     public MercanciasSecas add(MercanciasSecas a) {
+
         try {
 
             MongoClient mongoClient = new MongoClient(HOST, PORT);
@@ -43,6 +52,7 @@ public class MercanciasSecasDAO {
             DB db = mongoClient.getDB("trazabilidad");
 
             DBCollection coll = db.getCollection("mercanciasSecas");
+
             DBObject doc = new BasicDBObject("serial", a.getSerial())
                     .append("tipo", a.getTipo())
                     .append("serie", a.getSerie())
@@ -92,13 +102,39 @@ public class MercanciasSecasDAO {
 
     }
 
+    public List<MercanciasSecas> showOne(MercanciasSecas emp) throws UnknownHostException {
+        Map<String, MercanciasSecas> empMap = new HashMap<String, MercanciasSecas>();
+     
+        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
+
+        MongoCollection<Document> collection = database.getCollection("mercanciasSecas");
+        MongoCursor<Document> cursor  = collection.find(eq("tipo", emp.getTipo())).projection(Projections.excludeId()).iterator();
+        try {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                Gson gson = new Gson();
+                MercanciasSecas c = gson.fromJson(doc.toJson(), MercanciasSecas.class);
+                empMap.put(c.getTipo(), c);
+            }
+
+        } finally {
+            cursor.close();
+        }
+
+        Collection<MercanciasSecas> c = empMap.values();
+        List<MercanciasSecas> list = new ArrayList<MercanciasSecas>();
+        list.addAll(c);
+        return list;
+
+    }
+
     public String deleteAllMercancias() {
-        System.out.println("leeeasdadasdasdasssssssssssssssssssssssss");
         MongoClient mongoClient = new MongoClient("localhost", 27017);
         DB db = mongoClient.getDB("trazabilidad");
         DBCollection coll = db.getCollection("mercanciasSecas");
-        DBObject doc = coll.findOne();
-        coll.remove(doc);
+        //DBObject doc = coll.findOne();
+        // coll.remove(doc);
+        //coll.deleteOne(eq("name", "john"));
 
         return "borrado todo";
     }
