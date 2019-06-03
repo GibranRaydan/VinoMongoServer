@@ -45,9 +45,9 @@ public class BodegaDAO {
             DB db = mongoClient.getDB("trazabilidad");
 
             DBCollection coll = db.getCollection("bodega");
-            String qr = a.getLote() + "" + Math.random()*100;
+      
             DBObject doc = new BasicDBObject("lote", a.getLote())
-                    .append("qr", qr);
+                    .append("qr", a.getQr());
                     
 
             coll.insert(doc);
@@ -115,4 +115,12 @@ public class BodegaDAO {
         return list;
 
     }
+     
+     public String newCode(String a){
+     
+         int b=Integer.parseInt(a)+1000;
+         String c=String.valueOf(b);
+         
+     return c;
+     }
 }

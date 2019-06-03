@@ -47,6 +47,7 @@ public class MezclaVinosDAO {
             DBCollection coll = db.getCollection("mezclaVinos");
            
             DBObject doc = new BasicDBObject("qr1", a.getQr1())
+                     .append("qr2", a.getQr2())
                      .append("qrMezcla", a.getQrMezcla());
 
             coll.insert(doc);
@@ -114,4 +115,12 @@ public class MezclaVinosDAO {
         return list;
 
     }
+    
+    public String newCode(String a){
+     
+         int b=Integer.parseInt(a)+1000;
+         String c=String.valueOf(b);
+         
+     return c;
+     }
 }

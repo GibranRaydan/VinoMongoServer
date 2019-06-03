@@ -28,6 +28,7 @@ public class MezclaVinos {
 
     public MezclaVinos(String qr1, String qr2, String qrMezcla) {
         this.qr1 = qr1;
+        this.qr2 = qr2;
         this.qrMezcla = qrMezcla;
     }
 
@@ -39,6 +40,14 @@ public class MezclaVinos {
         this.qr1 = qr1;
     }
 
+    public String getQr2() {
+        return qr2;
+    }
+
+    public void setQr2(String qr2) {
+        this.qr2 = qr2;
+    }
+    
     
 
     public String getQrMezcla() {

@@ -41,6 +41,8 @@ public class MezclaVinosServicio {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public MezclaVinos addMezcla(MezclaVinos merca) {
         MezclaVinosDAO m = new MezclaVinosDAO();
+         String a = m.newCode(merca.getQrMezcla());
+         merca.setQrMezcla(a);
         return m.add(merca);
     }
     
