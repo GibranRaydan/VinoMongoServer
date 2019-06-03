@@ -39,8 +39,9 @@ public class RecoleccionUvasServicio {
     
      @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public RecoleccionUvas addRecoleccion (RecoleccionUvas merca) {
+    public RecoleccionUvas addRecoleccion (RecoleccionUvas merca) throws UnknownHostException {
         RecoleccionUvasDAO m = new RecoleccionUvasDAO();
+        merca.setQr(m.generateQR(merca));
         return m.add(merca);
     }
     

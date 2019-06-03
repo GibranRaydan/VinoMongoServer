@@ -38,9 +38,8 @@ public class RecoleccionUvasDAO {
     public RecoleccionUvas add(RecoleccionUvas a) {
 
         try {
-           
             MongoClient mongoClient = new MongoClient(HOST, PORT);
-
+            
             DB db = mongoClient.getDB("trazabilidad");
 
             DBCollection coll = db.getCollection("recoleccionUvas");
@@ -118,19 +117,18 @@ public class RecoleccionUvasDAO {
 
     }
 
-    public RecoleccionUvas generateQR(RecoleccionUvas a) throws UnknownHostException {
+    public String generateQR(RecoleccionUvas a) throws UnknownHostException {
 
         do {
 
-            int ramdon = (int) Math.random() * 1000;
+            int ramdon = (int)Math.floor(Math.random() * 1000);
             String qr = String.valueOf(ramdon);
-            System.out.println(qr);
             a.setQr(qr);
 
             List<RecoleccionUvas> lis = showOne(a);
 
             if (lis.isEmpty()) {
-                return a;
+                return qr;
             }
         } while (true);
     }
