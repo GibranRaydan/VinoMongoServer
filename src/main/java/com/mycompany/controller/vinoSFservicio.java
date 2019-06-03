@@ -54,14 +54,17 @@ public class vinoSFservicio {
     }
 
     @GET
-    @Path("/{codigo}")
+    @Path("/{qr}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public vinoSF getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
+    public boolean getOneVineSF(@PathParam("qr") String qr) throws UnknownHostException {
         vinoSFDAO m = new vinoSFDAO();
         vinoSF emp = new vinoSF();
-        emp.setQr(codigo);
+        emp.setQr(qr);
         List<vinoSF> listOfCountries = m.showOne(emp);
-        return listOfCountries.get(0);
+        if(listOfCountries.isEmpty()){
+            return false;
+        }
+        return true;
     }
 
 }
