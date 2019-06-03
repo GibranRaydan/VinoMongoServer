@@ -46,8 +46,7 @@ public class MezclaVinosDAO {
 
             DBCollection coll = db.getCollection("mezclaVinos");
            
-            DBObject doc = new BasicDBObject("qr1", a.getQr1())
-                     .append("qr2", a.getQr2())
+            DBObject doc = new BasicDBObject("codigo", a.getCodigo())
                      .append("qr", a.getQr());
 
             coll.insert(doc);
@@ -74,8 +73,6 @@ public class MezclaVinosDAO {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 MezclaVinos c = gson.fromJson(doc.toJson(), MezclaVinos.class);
-                System.out.println(c.getQr1());
-                System.out.println(c.getQr());
                 
                 empMap.put(c.getQr(), c);
             }
@@ -116,11 +113,15 @@ public class MezclaVinosDAO {
 
     }
     
-    public String newCode(String a){
-     
-         int b=Integer.parseInt(a)+1000;
-         String c=String.valueOf(b);
-         
-     return c;
-     }
+    public String generateQR(MezclaVinos a) throws UnknownHostException {
+        do {
+            int ramdon = (int) Math.floor(Math.random() * 1000)+2000;
+            String qr = String.valueOf(ramdon);
+            a.setQr(qr);
+            List<MezclaVinos> lis = showOne(a);
+            if (lis.isEmpty()) {
+                return qr;
+            }
+        } while (true);
+    }
 }

@@ -59,6 +59,12 @@ public class vinoAceptadoServicio {
         vinoAceptado emp = new vinoAceptado();
         emp.setCodigo(codigo);
         List<vinoAceptado> listOfCountries = m.showOne(emp);
+        if(listOfCountries.isEmpty()){
+            return null;
+        }
+        if(listOfCountries.get(0).getAceptacion().equalsIgnoreCase("0")){
+            return null;
+        }
         return listOfCountries.get(0);
     }
 

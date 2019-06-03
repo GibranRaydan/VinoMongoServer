@@ -5,6 +5,7 @@
  */
 package com.mycompany.model;
 
+import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,38 +18,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "mezclaVinos")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MezclaVinos {
-    String qr1;
-    String qr2;
-    String qr;
+    public ArrayList<String> codigo;
+    public String qr;
 
     public MezclaVinos() {
     }
-    
-    
 
-    public MezclaVinos(String qr1, String qr2, String qr) {
-        this.qr1 = qr1;
-        this.qr2 = qr2;
-        this.qr = qr;
+    public ArrayList<String> getCodigo() {
+        return codigo;
     }
 
-    public String getQr1() {
-        return qr1;
+    public void setCodigo(ArrayList<String> codigo) {
+        this.codigo = codigo;
     }
-
-    public void setQr1(String qr1) {
-        this.qr1 = qr1;
-    }
-
-    public String getQr2() {
-        return qr2;
-    }
-
-    public void setQr2(String qr2) {
-        this.qr2 = qr2;
-    }
-    
-    
 
     public String getQr() {
         return qr;
@@ -57,8 +39,11 @@ public class MezclaVinos {
     public void setQr(String qr) {
         this.qr = qr;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "MezclaVinos{" + "codigo=" + codigo + ", qr=" + qr + '}';
+    }
     
     
 }

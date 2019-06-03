@@ -39,10 +39,9 @@ public class MezclaVinosServicio {
     }
      @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public MezclaVinos addMezcla(MezclaVinos merca) {
+    public MezclaVinos addMezcla(MezclaVinos merca) throws UnknownHostException {
         MezclaVinosDAO m = new MezclaVinosDAO();
-        String a = merca.getQr();
-        String b=m.newCode(a);
+        String b=m.generateQR(merca);
         merca.setQr(b);
         m.add(merca);
         return merca;
