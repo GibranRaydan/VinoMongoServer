@@ -30,26 +30,24 @@ import org.bson.Document;
  * @author super
  */
 public class RecoleccionUvasDAO {
+
     private final static String HOST = "localhost";
     private final static int PORT = 27017;
-     MongoClient mongoClient = new MongoClient(HOST, PORT);
-     
-     
-      public RecoleccionUvas add(RecoleccionUvas a) {
+    MongoClient mongoClient = new MongoClient(HOST, PORT);
+
+    public RecoleccionUvas add(RecoleccionUvas a) {
 
         try {
-
             MongoClient mongoClient = new MongoClient(HOST, PORT);
-
+            
             DB db = mongoClient.getDB("trazabilidad");
 
             DBCollection coll = db.getCollection("recoleccionUvas");
-            String qr = a.getNumeroVinedo() + "" + a.getCantidad()+ "" + a.getFecha() + "" + (Math.random()*60);
 
             DBObject doc = new BasicDBObject("numeroVinedo", a.getNumeroVinedo())
                     .append("cantidad", a.getCantidad())
                     .append("serie", a.getFecha())
-                    .append("qr", qr);
+                    .append("qr", a.getQr());
 
             coll.insert(doc);
 
@@ -59,11 +57,11 @@ public class RecoleccionUvasDAO {
         }
         return a;
     }
-      
-       public List<RecoleccionUvas> show() throws UnknownHostException {
+
+    public List<RecoleccionUvas> show() throws UnknownHostException {
         MongoClient mongoClient = new MongoClient(HOST, PORT);
 
-        Map<String, RecoleccionUvas> empMap = new HashMap<String,RecoleccionUvas>();
+        Map<String, RecoleccionUvas> empMap = new HashMap<String, RecoleccionUvas>();
         MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
         MongoCollection<Document> collection = database.getCollection("recoleccionUvas");
@@ -92,14 +90,14 @@ public class RecoleccionUvasDAO {
         return list;
 
     }
-       
-       public List<RecoleccionUvas> showOne(RecoleccionUvas emp) throws UnknownHostException {
+
+    public List<RecoleccionUvas> showOne(RecoleccionUvas emp) throws UnknownHostException {
         Map<String, RecoleccionUvas> empMap = new HashMap<String, RecoleccionUvas>();
-     
+
         MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
         MongoCollection<Document> collection = database.getCollection("recoleccionUvas");
-        MongoCursor<Document> cursor  = collection.find(eq("fecha", emp.getFecha())).projection(Projections.excludeId()).iterator();
+        MongoCursor<Document> cursor = collection.find(eq("codigo", emp.getFecha())).projection(Projections.excludeId()).iterator();
         try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
@@ -119,6 +117,20 @@ public class RecoleccionUvasDAO {
 
     }
 
-    
-    
+    public String generateQR(RecoleccionUvas a) throws UnknownHostException {
+
+        do {
+
+            int ramdon = (int)Math.floor(Math.random() * 1000);
+            String qr = String.valueOf(ramdon);
+            a.setQr(qr);
+
+            List<RecoleccionUvas> lis = showOne(a);
+
+            if (lis.isEmpty()) {
+                return qr;
+            }
+        } while (true);
+    }
+
 }

@@ -48,6 +48,8 @@ public class vinoSFservicio {
     @Consumes(MediaType.APPLICATION_JSON)
     public vinoSF addVineSF(vinoSF emp) {
         vinoSFDAO m = new vinoSFDAO();
+        String a=emp.getCodigoOG();
+        emp.setNewCodigo(a);
         m.add(emp);
         return emp;
     }

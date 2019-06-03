@@ -46,10 +46,9 @@ public class SalidaDAO {
             DB db = mongoClient.getDB("trazabilidad");
 
             DBCollection coll = db.getCollection("salida");
-            String qr = a.getId() + "-" + Math.random()*60;
+            
 
-            DBObject doc = new BasicDBObject("id", a.getId())
-                    .append("qr", qr);
+            DBObject doc = new BasicDBObject("qr", a.getQr());
 
             coll.insert(doc);
 
@@ -75,10 +74,10 @@ public class SalidaDAO {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 Salida c = gson.fromJson(doc.toJson(), Salida.class);
-                System.out.println(c.getId());
+             
                 System.out.println(c.getQr());
                 
-                empMap.put(c.getId(), c);
+           
             }
 
         } finally {

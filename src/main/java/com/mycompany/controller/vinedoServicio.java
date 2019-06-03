@@ -44,11 +44,11 @@ public class vinedoServicio {
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Consumes(MediaType.APPLICATION_JSON)
-    public vinedo addVinedo(vinedo emp) {
+    public String addVinedo(vinedo emp) {
         vinedosDAO m = new vinedosDAO();
         System.out.println(emp.getNombre());
         m.add(emp);
-        return emp;
+        return "llegue putos";
     }
 
     @GET
