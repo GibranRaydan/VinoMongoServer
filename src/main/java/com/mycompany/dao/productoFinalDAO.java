@@ -44,12 +44,12 @@ public class productoFinalDAO {
         try {
             DB db = mongoClient.getDB("trazabilidad");
              
-            a.setNewCodigo(nuevoCodigo(a.getCodigoOG(), a.getFecha()));
+            a.setQr(nuevoCodigo(a.getCodigoOG(), a.getFecha()));
 
             DBCollection coll = db.getCollection("productoFinal");
             DBObject doc = new BasicDBObject("fecha", a.getFecha())
                     .append("codigoOG", a.getCodigoOG())
-                    .append("newCodigo", a.getNewCodigo())
+                    .append("qr", a.getQr())
                     .append("mercaderias", a.getMercaderias());
 
             coll.insert(doc);
@@ -72,7 +72,7 @@ public class productoFinalDAO {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 productoFinal c = gson.fromJson(doc.toJson(), productoFinal.class);
-                empMap.put(c.getNewCodigo(), c);
+                empMap.put(c.getQr(), c);
             }
 
         } finally {
@@ -92,13 +92,13 @@ public class productoFinalDAO {
         MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
         MongoCollection<Document> collection = database.getCollection("productoFinal");
-        MongoCursor<Document> cursor  = collection.find(eq("newCodigo", emp.getNewCodigo())).projection(Projections.excludeId()).iterator();
+        MongoCursor<Document> cursor  = collection.find(eq("qr", emp.getQr())).projection(Projections.excludeId()).iterator();
         try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 productoFinal c = gson.fromJson(doc.toJson(), productoFinal.class);
-                empMap.put(c.getNewCodigo(), c);
+                empMap.put(c.getQr(), c);
             }
 
         } finally {
@@ -114,32 +114,6 @@ public class productoFinalDAO {
     
     
 
-    public boolean deleteVinedo(productoFinal a) {
-
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
-
-        MongoCollection<Document> collection = database.getCollection("productoFinal");
-
-        DeleteResult deleteResult = collection.deleteOne(eq("newCodigo", a.getNewCodigo()));
-
-        boolean b = deleteResult.wasAcknowledged();
-
-        return b;
-    }
-    
-    
-    public void updateVinedo(productoFinal a){
-    
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
-
-        MongoCollection<Document> collection = database.getCollection("productoFinal");
-        
-        
-        Document up=new Document("", a);
-        
-        collection.findOneAndUpdate(eq("newCodigo",a.getNewCodigo()),up);
-        
-        }
      public static String nuevoCodigo(String codigo,String fecha){
     
         int ram=(int) Math.random()*600;

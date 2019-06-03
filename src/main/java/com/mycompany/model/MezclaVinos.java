@@ -19,17 +19,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class MezclaVinos {
     String qr1;
     String qr2;
-    String qrMezcla;
+    String qr;
 
     public MezclaVinos() {
     }
     
     
 
-    public MezclaVinos(String qr1, String qr2, String qrMezcla) {
+    public MezclaVinos(String qr1, String qr2, String qr) {
         this.qr1 = qr1;
         this.qr2 = qr2;
-        this.qrMezcla = qrMezcla;
+        this.qr = qr;
     }
 
     public String getQr1() {
@@ -50,12 +50,12 @@ public class MezclaVinos {
     
     
 
-    public String getQrMezcla() {
-        return qrMezcla;
+    public String getQr() {
+        return qr;
     }
 
-    public void setQrMezcla(String qrMezcla) {
-        this.qrMezcla = qrMezcla;
+    public void setQr(String qr) {
+        this.qr = qr;
     }
     
     

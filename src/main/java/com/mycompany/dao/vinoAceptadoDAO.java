@@ -107,32 +107,8 @@ public class vinoAceptadoDAO {
 
     }
     
-    
 
-    public boolean deleteVinedo(vinoAceptado a) {
-
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
-
-        MongoCollection<Document> collection = database.getCollection("vinoAceptado");
-
-        DeleteResult deleteResult = collection.deleteOne(eq("codigo", a.getCodigo()));
-
-        boolean b = deleteResult.wasAcknowledged();
-
-        return b;
-    }
     
     
-    public void updateVinedo(vinoAceptado a){
     
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
-
-        MongoCollection<Document> collection = database.getCollection("vinoAceptado");
-        
-        
-        Document up=new Document("", a);
-        
-        collection.findOneAndUpdate(eq("codigo",a.getCodigo()),up);
-        
-        }
 }

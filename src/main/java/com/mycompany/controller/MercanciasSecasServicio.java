@@ -47,12 +47,6 @@ public class MercanciasSecasServicio {
         return m.add(merca);
     }
 
-    @DELETE
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public String deleteAllMercancias() {
-        MercanciasSecasDAO m = new MercanciasSecasDAO();
-        return m.deleteAllMercancias();
-    }
 
     @GET
     @Path("/{tipo}")

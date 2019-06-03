@@ -20,7 +20,7 @@ public class productoLlegada {
     String codigoOG;
     String distribuidor;
     String fecha;
-    String newCodigo;
+    String qr;
 
     public String getCodigoOG() {
         return codigoOG;
@@ -46,12 +46,12 @@ public class productoLlegada {
         this.fecha = fecha;
     }
 
-    public String getNewCodigo() {
-        return newCodigo;
+    public String getQr() {
+        return qr;
     }
 
-    public void setNewCodigo(String newCodigo) {
-        this.newCodigo = newCodigo;
+    public void setQr(String qr) {
+        this.qr = qr;
     }
     
     

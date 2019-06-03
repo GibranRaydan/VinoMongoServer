@@ -126,15 +126,6 @@ public class MercanciasSecasDAO {
 
     }
 
-    public String deleteAllMercancias() {
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        DB db = mongoClient.getDB("trazabilidad");
-        DBCollection coll = db.getCollection("mercanciasSecas");
-        //DBObject doc = coll.findOne();
-        // coll.remove(doc);
-        //coll.deleteOne(eq("name", "john"));
-
-        return "borrado todo";
-    }
+    
 
 }

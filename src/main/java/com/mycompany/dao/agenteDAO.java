@@ -109,29 +109,8 @@ public class agenteDAO {
 
     }
 
-    public boolean deleteVinedo(agente a) {
+   
 
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
-
-        MongoCollection<Document> collection = database.getCollection("agentes");
-
-        DeleteResult deleteResult = collection.deleteOne(eq("nombre", a.getNombre()));
-
-        boolean b = deleteResult.wasAcknowledged();
-
-        return b;
-    }
-
-    public void updateVinedo(agente a) {
-
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
-
-        MongoCollection<Document> collection = database.getCollection("agentes");
-
-        Document up = new Document("", a);
-
-        collection.findOneAndUpdate(eq("nombre", a.getNombre()), up);
-
-    }
+ 
 
 }

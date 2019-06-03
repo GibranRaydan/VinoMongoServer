@@ -14,7 +14,7 @@ public class productoFinal {
     String mercaderias;
     String fecha;
     String codigoOG;
-    String newCodigo;
+    String qr;
 
     public String getMercaderias() {
         return mercaderias;
@@ -40,12 +40,12 @@ public class productoFinal {
         this.codigoOG = codigoOG;
     }
 
-    public String getNewCodigo() {
-        return newCodigo;
+    public String getQr() {
+        return qr;
     }
 
-    public void setNewCodigo(String newCodigo) {
-        this.newCodigo = newCodigo;
+    public void setQr(String qr) {
+        this.qr = qr;
     }
     
     

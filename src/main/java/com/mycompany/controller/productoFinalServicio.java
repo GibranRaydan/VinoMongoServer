@@ -49,7 +49,7 @@ public class productoFinalServicio {
        productoFinalDAO m = new productoFinalDAO();
         String a = emp.getCodigoOG();
         String b=m.newCode(a);
-        emp.setNewCodigo(b);
+        emp.setQr(b);
         m.add(emp);
         return emp;
     }
@@ -57,10 +57,10 @@ public class productoFinalServicio {
     @GET
     @Path("/{codigo}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public productoFinal getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
+    public productoFinal getOneVineSF(@PathParam("qr") String codigo) throws UnknownHostException {
         productoFinalDAO m = new productoFinalDAO();
         productoFinal emp = new productoFinal();
-        emp.setNewCodigo(codigo);
+        emp.setQr(codigo);
         List<productoFinal> listOfCountries = m.showOne(emp);
         return listOfCountries.get(0);
     }

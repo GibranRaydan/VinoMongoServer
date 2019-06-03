@@ -41,20 +41,20 @@ public class MezclaVinosServicio {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public MezclaVinos addMezcla(MezclaVinos merca) {
         MezclaVinosDAO m = new MezclaVinosDAO();
-        String a = merca.getQrMezcla();
+        String a = merca.getQr();
         String b=m.newCode(a);
-        merca.setQrMezcla(b);
+        merca.setQr(b);
         m.add(merca);
         return merca;
     }
     
     @GET
-    @Path("/{qrMezcla}")
+    @Path("/{qr}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public MezclaVinos getOneMercancia(@PathParam("qrMezcla") String qrMezcla) throws UnknownHostException {
+    public MezclaVinos getOneMercancia(@PathParam("qr") String qr) throws UnknownHostException {
          MezclaVinosDAO m=new MezclaVinosDAO();
          MezclaVinos emp=new MezclaVinos();
-         emp.setQrMezcla(qrMezcla);
+         emp.setQr(qr);
          System.out.println("no este");
              List<MezclaVinos> listOfLote = m.showOne(emp);
             return listOfLote.get(0);

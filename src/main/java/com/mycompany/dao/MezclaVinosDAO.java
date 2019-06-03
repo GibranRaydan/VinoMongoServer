@@ -48,7 +48,7 @@ public class MezclaVinosDAO {
            
             DBObject doc = new BasicDBObject("qr1", a.getQr1())
                      .append("qr2", a.getQr2())
-                     .append("qrMezcla", a.getQrMezcla());
+                     .append("qr", a.getQr());
 
             coll.insert(doc);
 
@@ -75,9 +75,9 @@ public class MezclaVinosDAO {
                 Gson gson = new Gson();
                 MezclaVinos c = gson.fromJson(doc.toJson(), MezclaVinos.class);
                 System.out.println(c.getQr1());
-                System.out.println(c.getQrMezcla());
+                System.out.println(c.getQr());
                 
-                empMap.put(c.getQrMezcla(), c);
+                empMap.put(c.getQr(), c);
             }
 
         } finally {
@@ -96,13 +96,13 @@ public class MezclaVinosDAO {
         MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
         MongoCollection<Document> collection = database.getCollection("mezclaVinos");
-        MongoCursor<Document> cursor  = collection.find(eq("qrMezcla", emp.getQrMezcla())).projection(Projections.excludeId()).iterator();
+        MongoCursor<Document> cursor  = collection.find(eq("qr", emp.getQr())).projection(Projections.excludeId()).iterator();
         try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 MezclaVinos c = gson.fromJson(doc.toJson(), MezclaVinos.class);
-                empMap.put(c.getQrMezcla(), c);
+                empMap.put(c.getQr(), c);
             }
 
         } finally {

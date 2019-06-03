@@ -111,33 +111,9 @@ public class vinedosDAO {
 
     }
     
-    
-
-    public boolean deleteVinedo(vinedo a) {
-
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
-
-        MongoCollection<Document> collection = database.getCollection("vinedos");
-
-        DeleteResult deleteResult = collection.deleteOne(eq("nombre", a.getNombre()));
-
-        boolean b = deleteResult.wasAcknowledged();
-
-        return b;
-    }
+   
     
     
-    public void updateVinedo(vinedo a){
-    
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
-
-        MongoCollection<Document> collection = database.getCollection("vinedos");
-        
-        
-        Document up=new Document("", a);
-        
-        collection.findOneAndUpdate(eq("nombre",a.getNombre()),up);
-        
-        }
+  
 
 }
