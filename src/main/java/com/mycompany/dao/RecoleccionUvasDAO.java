@@ -39,7 +39,7 @@ public class RecoleccionUvasDAO {
 
         try {
             MongoClient mongoClient = new MongoClient(HOST, PORT);
-            
+
             DB db = mongoClient.getDB("trazabilidad");
 
             DBCollection coll = db.getCollection("recoleccionUvas");
@@ -121,7 +121,7 @@ public class RecoleccionUvasDAO {
 
         do {
 
-            int ramdon = (int)Math.floor(Math.random() * 1000);
+            int ramdon = (int) Math.floor(Math.random() * 1000);
             String qr = String.valueOf(ramdon);
             a.setQr(qr);
 
