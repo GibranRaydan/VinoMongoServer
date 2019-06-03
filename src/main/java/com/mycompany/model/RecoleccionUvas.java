@@ -62,6 +62,11 @@ public class RecoleccionUvas {
     public void setQr(String qr) {
         this.qr = qr;
     }
+
+    @Override
+    public String toString() {
+        return "RecoleccionUvas{" + "numeroVinedo=" + numeroVinedo + ", cantidad=" + cantidad + ", fecha=" + fecha + ", qr=" + qr + '}';
+    }
     
     
     

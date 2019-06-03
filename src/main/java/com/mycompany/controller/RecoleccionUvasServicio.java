@@ -25,36 +25,38 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/recoleccionUvas")
 public class RecoleccionUvasServicio {
-    
-      @GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+
     public String getRecoleccionUvas() throws UnknownHostException {
-         RecoleccionUvasDAO m=new RecoleccionUvasDAO();
+        RecoleccionUvasDAO m = new RecoleccionUvasDAO();
         List<RecoleccionUvas> listOfUvas = m.show();
         Gson gson = new Gson();
-        String toJson="{\"recoleccionUvas\":"+gson.toJson(listOfUvas)+"}";
+        String toJson = "{\"recoleccionUvas\":" + gson.toJson(listOfUvas) + "}";
         return toJson;
     }
-    
-     @POST
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public RecoleccionUvas addRecoleccion (RecoleccionUvas merca) throws UnknownHostException {
+
+    @POST
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public RecoleccionUvas addRecoleccion(RecoleccionUvas merca) throws UnknownHostException {
         RecoleccionUvasDAO m = new RecoleccionUvasDAO();
         merca.setQr(m.generateQR(merca));
         return m.add(merca);
     }
-    
-     @GET
-    @Path("/{fecha}")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public RecoleccionUvas getOneRecoleccionUva(@PathParam("fecha") String fecha) throws UnknownHostException {
-         RecoleccionUvasDAO m=new RecoleccionUvasDAO();
-         RecoleccionUvas emp=new RecoleccionUvas();
-         emp.setFecha(fecha);
-         System.out.println("no este");
-             List<RecoleccionUvas> listOfUvas = m.showOne(emp);
-            return listOfUvas.get(0);
+
+    @GET
+    @Path("/{qr}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public RecoleccionUvas getOneRecoleccionUva(@PathParam("qr") String qr) throws UnknownHostException {
+        RecoleccionUvasDAO m = new RecoleccionUvasDAO();
+        RecoleccionUvas emp = new RecoleccionUvas();
+        emp.setQr(qr);
+        List<RecoleccionUvas> listOfUvas = m.showOne(emp);
+        if (listOfUvas.isEmpty()) {
+            return null;
+        }
+        return listOfUvas.get(0);
     }
-    
+
 }

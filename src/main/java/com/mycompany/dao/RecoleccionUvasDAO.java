@@ -46,7 +46,7 @@ public class RecoleccionUvasDAO {
 
             DBObject doc = new BasicDBObject("numeroVinedo", a.getNumeroVinedo())
                     .append("cantidad", a.getCantidad())
-                    .append("serie", a.getFecha())
+                    .append("fecha", a.getFecha())
                     .append("qr", a.getQr());
 
             coll.insert(doc);
@@ -97,13 +97,13 @@ public class RecoleccionUvasDAO {
         MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
         MongoCollection<Document> collection = database.getCollection("recoleccionUvas");
-        MongoCursor<Document> cursor = collection.find(eq("codigo", emp.getFecha())).projection(Projections.excludeId()).iterator();
+        MongoCursor<Document> cursor = collection.find(eq("qr", emp.getQr())).projection(Projections.excludeId()).iterator();
         try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 RecoleccionUvas c = gson.fromJson(doc.toJson(), RecoleccionUvas.class);
-                empMap.put(c.getFecha(), c);
+                empMap.put(c.getQr(), c);
             }
 
         } finally {
