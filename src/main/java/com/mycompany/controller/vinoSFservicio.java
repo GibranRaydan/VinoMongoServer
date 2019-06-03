@@ -43,13 +43,12 @@ public class vinoSFservicio {
 
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public vinoSF addVineSF(vinoSF emp) {
+    public vinoSF addVineSF(vinoSF emp) throws UnknownHostException {
         System.out.println(emp.toString());
         System.out.println("llegueee= "+emp.toString());
         vinoSFDAO m = new vinoSFDAO();
-        String a = emp.getCodigoOG();
-        String b=m.newCode(a);
-        emp.setNewCodigo(b);
+        String b=m.newCode(emp);
+        emp.setQr(b);
         m.add(emp);
         return emp;
     }
@@ -60,7 +59,7 @@ public class vinoSFservicio {
     public vinoSF getOneVineSF(@PathParam("codigo") String codigo) throws UnknownHostException {
         vinoSFDAO m = new vinoSFDAO();
         vinoSF emp = new vinoSF();
-        emp.setNewCodigo(codigo);
+        emp.setQr(codigo);
         List<vinoSF> listOfCountries = m.showOne(emp);
         return listOfCountries.get(0);
     }

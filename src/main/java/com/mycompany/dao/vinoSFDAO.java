@@ -47,7 +47,7 @@ public class vinoSFDAO {
             DBCollection coll = db.getCollection("vinoSF");
             DBObject doc = new BasicDBObject("fecha", a.getFecha())
                     .append("codigoOG", a.getCodigoOG())
-                    .append("qr", a.getNewCodigo());
+                    .append("qr", a.getQr());
 
             coll.insert(doc);
 
@@ -69,7 +69,7 @@ public class vinoSFDAO {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 vinoSF c = gson.fromJson(doc.toJson(), vinoSF.class);
-                empMap.put(c.getNewCodigo(), c);
+                empMap.put(c.getQr(), c);
             }
 
         } finally {
@@ -88,13 +88,13 @@ public class vinoSFDAO {
         MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
         MongoCollection<Document> collection = database.getCollection("vinoSF");
-        MongoCursor<Document> cursor = collection.find(eq("newCodigo", emp.getNewCodigo())).projection(Projections.excludeId()).iterator();
+        MongoCursor<Document> cursor = collection.find(eq("qr", emp.getQr())).projection(Projections.excludeId()).iterator();
         try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 vinoSF c = gson.fromJson(doc.toJson(), vinoSF.class);
-                empMap.put(c.getNewCodigo(), c);
+                empMap.put(c.getQr(), c);
             }
 
         } finally {
@@ -108,44 +108,19 @@ public class vinoSFDAO {
 
     }
 
-    public boolean deleteVinedo(vinoSF a) {
+    public String newCode(vinoSF a) throws UnknownHostException {
 
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
+        do {
+            int ramdon = (int) Math.floor(Math.random() * 1000)+1000;
+            String qr = String.valueOf(ramdon);
+            a.setQr(qr);
 
-        MongoCollection<Document> collection = database.getCollection("vinoSF");
+            List<vinoSF> lis = showOne(a);
 
-        DeleteResult deleteResult = collection.deleteOne(eq("newCodigo", a.getNewCodigo()));
-
-        boolean b = deleteResult.wasAcknowledged();
-
-        return b;
-    }
-
-    public void updateVinedo(vinoSF a) {
-
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
-
-        MongoCollection<Document> collection = database.getCollection("vinoSF");
-
-        Document up = new Document("", a);
-
-        collection.findOneAndUpdate(eq("newCodigo", a.getNewCodigo()), up);
-
-    }
-
-    public static String nuevoCodigo(String codigo, String fecha) {
-
-        int ram = (int) Math.random() * 600;
-
-        return codigo + fecha + ram;
-    }
-
-    public String newCode(String a) {
-
-        int b = Integer.parseInt(a) + 1000;
-        String c = String.valueOf(b);
-
-        return c;
+            if (lis.isEmpty()) {
+                return qr;
+            }
+        } while (true);
     }
 
 }

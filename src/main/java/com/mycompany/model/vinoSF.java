@@ -9,6 +9,7 @@ package com.mycompany.model;
  *
  * @author sgome
  */
+import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,15 +18,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class vinoSF {
     
-    String codigoOG;
+    ArrayList<String> codigoOG;
     String fecha;
-    String newCodigo;
+    String qr;
 
-    public String getCodigoOG() {
+    public ArrayList<String> getCodigoOG() {
         return codigoOG;
     }
 
-    public void setCodigoOG(String codigoOG) {
+    public void setCodigoOG(ArrayList<String> codigoOG) {
         this.codigoOG = codigoOG;
     }
 
@@ -37,17 +38,18 @@ public class vinoSF {
         this.fecha = fecha;
     }
 
-    public String getNewCodigo() {
-        return newCodigo;
+    public String getQr() {
+        return qr;
     }
 
-    public void setNewCodigo(String newCodigo) {
-        this.newCodigo = newCodigo;
+    public void setQr(String qr) {
+        this.qr = qr;
     }
 
     @Override
     public String toString() {
-        return "vinoSF{" + "codigoOG=" + codigoOG + ", fecha=" + fecha + ", newCodigo=" + newCodigo + '}';
+        return "vinoSF{" + "codigoOG=" + codigoOG + ", fecha=" + fecha + ", qr=" + qr + '}';
     }
+
     
 }
