@@ -44,7 +44,10 @@ public class vinoSF {
     public void setNewCodigo(String newCodigo) {
         this.newCodigo = newCodigo;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "vinoSF{" + "codigoOG=" + codigoOG + ", fecha=" + fecha + ", newCodigo=" + newCodigo + '}';
+    }
     
 }

@@ -5,7 +5,6 @@
  */
 package com.mycompany.controller;
 
-
 import com.google.gson.Gson;
 import com.mycompany.dao.loteEntranteDAO;
 import com.mycompany.model.MercanciasSecas;
@@ -25,34 +24,36 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/loteEntrante")
 public class loteEntranteServicio {
-    
-     @GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public String getAllLoteEntrante() throws UnknownHostException {
-         loteEntranteDAO m= new loteEntranteDAO();
-         List<loteEntrante> listOfLotes = m.getAllLoteEntrante();
-       Gson gson = new Gson();
-        String toJson="{\"loteEntrante\":"+gson.toJson(m)+"}";
+        loteEntranteDAO m = new loteEntranteDAO();
+        List<loteEntrante> listOfLotes = m.getAllLoteEntrante();
+        Gson gson = new Gson();
+        String toJson = "{\"loteEntrante\":" + gson.toJson(m) + "}";
         return toJson;
     }
-    
+
     @POST
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public loteEntrante addloteEntrante(loteEntrante emp) {
-        
-       loteEntranteDAO m = new loteEntranteDAO();
+        loteEntranteDAO m = new loteEntranteDAO();
         return m.addLoteEntrante(emp);
     }
-    
+
     @GET
     @Path("/{qr}")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public loteEntrante getOneMercancia(@PathParam("qr") String qr) throws UnknownHostException {
-         loteEntranteDAO m=new loteEntranteDAO();
-         loteEntrante emp=new loteEntrante();
-         emp.setQr(qr);
-         System.out.println("no este");
-             List<loteEntrante> listOfLote = m.showOne(emp);
-            return listOfLote.get(0);
+        loteEntranteDAO m = new loteEntranteDAO();
+        loteEntrante emp = new loteEntrante();
+        emp.setQr(qr);
+        List<loteEntrante> listOfLote = m.showOne(emp);
+        System.out.println(listOfLote.toString());
+        if (listOfLote.isEmpty()) {
+            return null;
+        }
+        return listOfLote.get(0);
     }
 }

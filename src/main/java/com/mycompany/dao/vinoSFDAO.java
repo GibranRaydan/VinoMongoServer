@@ -47,7 +47,7 @@ public class vinoSFDAO {
             DBCollection coll = db.getCollection("vinoSF");
             DBObject doc = new BasicDBObject("fecha", a.getFecha())
                     .append("codigoOG", a.getCodigoOG())
-                    .append("newCodigo", a.getNewCodigo());
+                    .append("qr", a.getNewCodigo());
 
             coll.insert(doc);
 

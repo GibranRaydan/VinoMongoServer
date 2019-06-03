@@ -43,8 +43,9 @@ public class vinoSFservicio {
 
     @POST
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Consumes(MediaType.APPLICATION_JSON)
     public vinoSF addVineSF(vinoSF emp) {
+        System.out.println(emp.toString());
+        System.out.println("llegueee= "+emp.toString());
         vinoSFDAO m = new vinoSFDAO();
         String a = emp.getCodigoOG();
         String b=m.newCode(a);

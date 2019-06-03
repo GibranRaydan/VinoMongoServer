@@ -46,6 +46,11 @@ public class loteEntrante {
     public void setCasualidades(String casualidades) {
         this.casualidades = casualidades;
     }
+
+    @Override
+    public String toString() {
+        return "loteEntrante{" + "qr=" + qr + ", casualidades=" + casualidades + '}';
+    }
     
     
     
