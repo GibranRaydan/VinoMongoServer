@@ -16,24 +16,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "salida")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Salida {
-    String id;
+    
     String qr;
 
     public Salida() {
     }
 
-    public Salida(String id, String qr) {
-        this.id = id;
+    public Salida(String qr) {
+      
         this.qr = qr;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+   
 
     public String getQr() {
         return qr;

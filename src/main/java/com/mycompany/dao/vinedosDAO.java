@@ -88,7 +88,7 @@ public class vinedosDAO {
     
     public List<vinedo> showOne(vinedo emp) throws UnknownHostException {
         Map<String, vinedo> empMap = new HashMap<String, vinedo>();
-        MongoDatabase database = mongoClient.getDatabase("trazabilidad");
+        MongoDatabase database = mongoClient.getDatabase("trazabilidad");   
 
         MongoCollection<Document> collection = database.getCollection("vinedos");
         MongoCursor<Document> cursor  = collection.find(eq("codigo", emp.getCodigo())).projection(Projections.excludeId()).iterator();

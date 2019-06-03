@@ -22,7 +22,7 @@ public class MercanciasSecas {
     private String tipo;
     private int serie;
     private int lote;
-    private int cantidad;
+  
 /**
  *
  * @author white
@@ -31,12 +31,12 @@ public MercanciasSecas() {
     
 }
 
-    public MercanciasSecas(int serial, String tipo, int serie, int lote, int cantidad) {
+    public MercanciasSecas(int serial, String tipo, int serie, int lote) {
         this.serial = serial;
         this.tipo = tipo;
         this.serie = serie;
         this.lote = lote;
-        this.cantidad = cantidad;
+       
     }
 
     public int getSerial() {
@@ -71,13 +71,7 @@ public MercanciasSecas() {
         this.lote = lote;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
+   
 
    
  

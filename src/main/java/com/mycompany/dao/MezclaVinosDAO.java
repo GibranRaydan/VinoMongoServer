@@ -45,10 +45,9 @@ public class MezclaVinosDAO {
             DB db = mongoClient.getDB("trazabilidad");
 
             DBCollection coll = db.getCollection("mezclaVinos");
-            String qrMezcla = a.getQr1() + "" + a.getQr2() + "" +  (Math.random()*60);
+           
             DBObject doc = new BasicDBObject("qr1", a.getQr1())
-                    .append("qr2", a.getQr2())
-                    .append("qrMezcla", qrMezcla);
+                     .append("qrMezcla", a.getQrMezcla());
 
             coll.insert(doc);
 
@@ -75,7 +74,6 @@ public class MezclaVinosDAO {
                 Gson gson = new Gson();
                 MezclaVinos c = gson.fromJson(doc.toJson(), MezclaVinos.class);
                 System.out.println(c.getQr1());
-                System.out.println(c.getQr2());
                 System.out.println(c.getQrMezcla());
                 
                 empMap.put(c.getQrMezcla(), c);

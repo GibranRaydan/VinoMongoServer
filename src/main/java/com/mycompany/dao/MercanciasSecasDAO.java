@@ -56,8 +56,7 @@ public class MercanciasSecasDAO {
             DBObject doc = new BasicDBObject("serial", a.getSerial())
                     .append("tipo", a.getTipo())
                     .append("serie", a.getSerie())
-                    .append("lote", a.getLote())
-                    .append("cantidad", a.getCantidad());
+                    .append("lote", a.getLote());
 
             coll.insert(doc);
 
@@ -87,7 +86,6 @@ public class MercanciasSecasDAO {
                 System.out.println(c.getTipo());
                 System.out.println(c.getSerie());
                 System.out.println(c.getLote());
-                System.out.println(c.getCantidad());
                 empMap.put(c.getTipo(), c);
             }
 
