@@ -147,4 +147,12 @@ public class productoFinalDAO {
        return codigo+fecha+ram;
     }
      
+      public String newCode(String a) {
+
+        int b = Integer.parseInt(a) + 1000;
+        String c = String.valueOf(b);
+
+        return c;
+    }
+     
 }
