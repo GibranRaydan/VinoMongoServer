@@ -27,35 +27,39 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/mezclaVinos")
 public class MezclaVinosServicio {
+
     @GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+
     public String getMezclas() throws UnknownHostException {
-         MezclaVinosDAO m=new MezclaVinosDAO();
+        MezclaVinosDAO m = new MezclaVinosDAO();
         List<MezclaVinos> listOfMezclas = m.show();
         Gson gson = new Gson();
-        String toJson="{\"mezclasVinos\":"+gson.toJson(listOfMezclas)+"}";
+        String toJson = "{\"mezclasVinos\":" + gson.toJson(listOfMezclas) + "}";
         return toJson;
     }
-     @POST
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+
+    @POST
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public MezclaVinos addMezcla(MezclaVinos merca) throws UnknownHostException {
         MezclaVinosDAO m = new MezclaVinosDAO();
-        String b=m.generateQR(merca);
+        String b = m.generateQR(merca);
         merca.setQr(b);
         m.add(merca);
         return merca;
     }
-    
+
     @GET
     @Path("/{qr}")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public MezclaVinos getOneMercancia(@PathParam("qr") String qr) throws UnknownHostException {
-         MezclaVinosDAO m=new MezclaVinosDAO();
-         MezclaVinos emp=new MezclaVinos();
-         emp.setQr(qr);
-         System.out.println("no este");
-             List<MezclaVinos> listOfLote = m.showOne(emp);
-            return listOfLote.get(0);
+        MezclaVinosDAO m = new MezclaVinosDAO();
+        MezclaVinos emp = new MezclaVinos();
+        emp.setQr(qr);
+        List<MezclaVinos> listOfLote = m.showOne(emp);
+        if(listOfLote.isEmpty()){
+            return null;
+        }
+        return listOfLote.get(0);
     }
 }

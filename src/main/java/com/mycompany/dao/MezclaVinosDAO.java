@@ -101,11 +101,9 @@ public class MezclaVinosDAO {
                 MezclaVinos c = gson.fromJson(doc.toJson(), MezclaVinos.class);
                 empMap.put(c.getQr(), c);
             }
-
         } finally {
             cursor.close();
         }
-
         Collection<MezclaVinos> c = empMap.values();
         List<MezclaVinos> list = new ArrayList<MezclaVinos>();
         list.addAll(c);
