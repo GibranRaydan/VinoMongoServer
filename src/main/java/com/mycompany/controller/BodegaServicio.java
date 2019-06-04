@@ -37,9 +37,6 @@ public class BodegaServicio {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Bodega addMercancias(Bodega merca) {
         BodegaDAO m = new BodegaDAO();
-        String a = merca.getQr();
-        String b=m.newCode(a);
-        merca.setQr(b);
         m.add(merca);
         return merca;
     }

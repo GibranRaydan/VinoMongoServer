@@ -45,7 +45,7 @@ public class BodegaDAO {
             DB db = mongoClient.getDB("trazabilidad");
 
             DBCollection coll = db.getCollection("bodega");
-      
+            a.setQr(generateQR(a));
             DBObject doc = new BasicDBObject("lote", a.getLote())
                     .append("qr", a.getQr());
                     
@@ -116,11 +116,18 @@ public class BodegaDAO {
 
     }
      
-     public String newCode(String a){
-     
-         int b=Integer.parseInt(a)+1000;
-         String c=String.valueOf(b);
-         
-     return c;
-     }
+     public String generateQR(Bodega a) throws UnknownHostException {
+        do {
+
+            int ramdon = (int) Math.floor(Math.random() * 1000)+6000;
+            String qr = String.valueOf(ramdon);
+            a.setQr(qr);
+
+            List<Bodega> lis = showOne(a);
+
+            if (lis.isEmpty()) {
+                return qr;
+            }
+        } while (true);
+    }
 }

@@ -52,13 +52,16 @@ public class productoFinalServicio {
     }
 
     @GET
-    @Path("/{codigo}")
+    @Path("/{qr}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public productoFinal getOneVineSF(@PathParam("qr") String codigo) throws UnknownHostException {
+    public productoFinal getOneVineSF(@PathParam("qr") String qr) throws UnknownHostException {
         productoFinalDAO m = new productoFinalDAO();
         productoFinal emp = new productoFinal();
-        emp.setQr(codigo);
+        emp.setQr(qr);
         List<productoFinal> listOfCountries = m.showOne(emp);
+        if(listOfCountries.isEmpty()){
+            return null;
+        }
         return listOfCountries.get(0);
     }
     
