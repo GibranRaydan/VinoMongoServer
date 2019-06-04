@@ -56,6 +56,9 @@ public class productoLlegadaServicio {
         productoLlegada emp = new productoLlegada();
         emp.setQr(qr);
         List<productoLlegada> listOfCountries = m.showOne(emp);
+        if(listOfCountries.isEmpty()){
+            return null;
+        }
         return listOfCountries.get(0);
     }
 }
