@@ -45,11 +45,12 @@ public class productoLlegadaDAO {
         try {
             DB db = mongoClient.getDB("trazabilidad");
              
-            a.setQr(nuevoCodigo(a.getCodigoOG(), a.getFecha()));
+            a.setQr(generateQR(a));
 
             DBCollection coll = db.getCollection("productoLlegada");
-            DBObject doc = new BasicDBObject("fecha", a.getFecha())
-                    .append("codigoOG", a.getCodigoOG())
+            DBObject doc = new BasicDBObject("codigoOG", a.getCodigoOG())
+                    .append("distribuidor",a.getDistribuidor())
+                    .append("fecha", a.getFecha())
                     .append("qr", a.getQr());
 
             coll.insert(doc);
@@ -112,12 +113,18 @@ public class productoLlegadaDAO {
 
     }
     
-    
+    public String generateQR(productoLlegada a) throws UnknownHostException {
+        do {
 
-     public static String nuevoCodigo(String codigo,String fecha){
-    
-        int ram=(int) Math.random()*600;
-    
-       return codigo+fecha+ram;
+            int ramdon = (int) Math.floor(Math.random() * 1000)+3000;
+            String qr = String.valueOf(ramdon);
+            a.setQr(qr);
+
+            List<productoLlegada> lis = showOne(a);
+
+            if (lis.isEmpty()) {
+                return qr;
+            }
+        } while (true);
     }
 }

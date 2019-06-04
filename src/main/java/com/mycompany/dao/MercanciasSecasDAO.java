@@ -48,7 +48,7 @@ public class MercanciasSecasDAO {
         try {
 
             MongoClient mongoClient = new MongoClient(HOST, PORT);
-
+            a.setSerial(generateQR(a));
             DB db = mongoClient.getDB("trazabilidad");
 
             DBCollection coll = db.getCollection("mercanciasSecas");
@@ -82,10 +82,6 @@ public class MercanciasSecasDAO {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 MercanciasSecas c = gson.fromJson(doc.toJson(), MercanciasSecas.class);
-                System.out.println(c.getSerial());
-                System.out.println(c.getTipo());
-                System.out.println(c.getSerie());
-                System.out.println(c.getLote());
                 empMap.put(c.getTipo(), c);
             }
 
@@ -106,7 +102,7 @@ public class MercanciasSecasDAO {
         MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
         MongoCollection<Document> collection = database.getCollection("mercanciasSecas");
-        MongoCursor<Document> cursor  = collection.find(eq("tipo", emp.getTipo())).projection(Projections.excludeId()).iterator();
+        MongoCursor<Document> cursor  = collection.find(eq("serial", emp.getSerial())).projection(Projections.excludeId()).iterator();
         try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
@@ -126,6 +122,19 @@ public class MercanciasSecasDAO {
 
     }
 
-    
+    public String generateQR(MercanciasSecas a) throws UnknownHostException {
+        do {
+
+            int ramdon = (int) Math.floor(Math.random() * 1000)+4000;
+            String qr = String.valueOf(ramdon);
+            a.setSerial(qr);
+
+            List<MercanciasSecas> lis = showOne(a);
+
+            if (lis.isEmpty()) {
+                return qr;
+            }
+        } while (true);
+    }
 
 }

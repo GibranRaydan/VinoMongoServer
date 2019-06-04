@@ -49,7 +49,7 @@ public class productoLlegadaServicio {
     }
 
     @GET
-    @Path("/{codigo}")
+    @Path("/{qr}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public productoLlegada getOneVineSF(@PathParam("qr") String qr) throws UnknownHostException {
         productoLlegadaDAO m = new productoLlegadaDAO();

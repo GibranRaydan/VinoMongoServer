@@ -5,45 +5,32 @@ package com.mycompany.model;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
- 
+
 @XmlRootElement(name = "mercancias")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MercanciasSecas {
-    
-    
-   
-    private int serial;
+
+    private String serial;
     private String tipo;
     private int serie;
     private int lote;
-  
-/**
- *
- * @author white
- */
-public MercanciasSecas() {
-    
-}
 
-    public MercanciasSecas(int serial, String tipo, int serie, int lote) {
-        this.serial = serial;
-        this.tipo = tipo;
-        this.serie = serie;
-        this.lote = lote;
-       
+    /**
+     *
+     * @author white
+     */
+    public MercanciasSecas() {
+
     }
 
-    public int getSerial() {
+    public String getSerial() {
         return serial;
     }
 
-    public void setSerial(int serial) {
+    public void setSerial(String serial) {
         this.serial = serial;
     }
 
@@ -71,8 +58,4 @@ public MercanciasSecas() {
         this.lote = lote;
     }
 
-   
-
-   
- 
 }

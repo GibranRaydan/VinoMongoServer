@@ -5,22 +5,24 @@
  */
 package com.mycompany.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author sgome
  */
 public class productoFinal {
     
-    String mercaderias;
-    String fecha;
     String codigoOG;
+    ArrayList<String> mercaderias;
+    String fecha;
     String qr;
 
-    public String getMercaderias() {
+    public ArrayList<String> getMercaderias() {
         return mercaderias;
     }
 
-    public void setMercaderias(String mercaderias) {
+    public void setMercaderias(ArrayList<String> mercaderias) {
         this.mercaderias = mercaderias;
     }
 

@@ -49,14 +49,16 @@ public class MercanciasSecasServicio {
 
 
     @GET
-    @Path("/{tipo}")
+    @Path("/{serial}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public MercanciasSecas getOneMercancia(@PathParam("tipo") String tipo) throws UnknownHostException {
+    public MercanciasSecas getOneMercancia(@PathParam("serial") String serial) throws UnknownHostException {
         MercanciasSecasDAO m = new MercanciasSecasDAO();
         MercanciasSecas emp = new MercanciasSecas();
-        emp.setTipo(tipo);
-        System.out.println("no este");
+        emp.setSerial(serial);
         List<MercanciasSecas> listOfMercancias = m.showOne(emp);
+        if(listOfMercancias.isEmpty()){
+            return null;
+        }
         return listOfMercancias.get(0);
     }
 

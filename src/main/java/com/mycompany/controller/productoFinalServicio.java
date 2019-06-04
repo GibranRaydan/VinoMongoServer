@@ -47,9 +47,6 @@ public class productoFinalServicio {
     @Consumes(MediaType.APPLICATION_JSON)
     public productoFinal addVineSF(productoFinal emp) {
        productoFinalDAO m = new productoFinalDAO();
-        String a = emp.getCodigoOG();
-        String b=m.newCode(a);
-        emp.setQr(b);
         m.add(emp);
         return emp;
     }
