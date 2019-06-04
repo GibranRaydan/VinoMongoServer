@@ -20,20 +20,19 @@ public class RegistroLlegada {
     String embotellador;
     String fecha;
     String comentarios;
+    String qr;
     int vendido;
 
     public RegistroLlegada() {
     }
 
-    public RegistroLlegada(String qrProducto, String embotellador, String fecha, String comentarios, int vendido) {
-        this.qrProducto = qrProducto;
-        this.embotellador = embotellador;
-        this.fecha = fecha;
-        this.comentarios = comentarios;
-        this.vendido = vendido;
+    public String getQr() {
+        return qr;
     }
-    
-    
+
+    public void setQr(String qr) {
+        this.qr = qr;
+    }
 
     public String getQrProducto() {
         return qrProducto;

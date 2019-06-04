@@ -23,33 +23,36 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/registroLlegada")
 public class RegistroLlegadaServicio {
+
     @GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+
     public String getRegistro() throws UnknownHostException {
         RegistroLlegadaDAO m = new RegistroLlegadaDAO();
         List<RegistroLlegada> listOfRegistros = m.show();
-       Gson gson = new Gson();
-        String toJson="{\"registroLlegada\":"+gson.toJson(listOfRegistros)+"}";
+        Gson gson = new Gson();
+        String toJson = "{\"registroLlegada\":" + gson.toJson(listOfRegistros) + "}";
         return toJson;
     }
-    
+
     @POST
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public RegistroLlegada addRegistro(RegistroLlegada merca) {
         RegistroLlegadaDAO m = new RegistroLlegadaDAO();
         return m.add(merca);
     }
-    
-     @GET
-    @Path("/{qrProducto}")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public RegistroLlegada getOneMercancia(@PathParam("qrProducto") String qrProducto) throws UnknownHostException {
-         RegistroLlegadaDAO m=new RegistroLlegadaDAO();
-         RegistroLlegada emp=new RegistroLlegada();
-         emp.setQrProducto(qrProducto);
-         System.out.println("no este");
-             List<RegistroLlegada> listOfRegistro = m.showOne(emp);
-            return listOfRegistro.get(0);
+
+    @GET
+    @Path("/{qr}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public RegistroLlegada getOneMercancia(@PathParam("qr") String qr) throws UnknownHostException {
+        RegistroLlegadaDAO m = new RegistroLlegadaDAO();
+        RegistroLlegada emp = new RegistroLlegada();
+        emp.setQr(qr);
+        List<RegistroLlegada> listOfRegistro = m.showOne(emp);
+        if (listOfRegistro.isEmpty()) {
+            return null;
+        }
+        return listOfRegistro.get(0);
     }
 }

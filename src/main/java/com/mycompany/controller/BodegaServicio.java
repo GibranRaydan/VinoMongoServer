@@ -47,8 +47,10 @@ public class BodegaServicio {
         BodegaDAO m = new BodegaDAO();
         Bodega emp = new Bodega();
         emp.setQr(tipo);
-        System.out.println("no este");
         List<Bodega> listOfMercancias = m.showOne(emp);
+        if(listOfMercancias.isEmpty()){
+            return null;
+        }
         return listOfMercancias.get(0);
     }
     

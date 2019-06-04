@@ -43,15 +43,15 @@ public class RegistroLlegadaDAO {
             MongoClient mongoClient = new MongoClient(HOST, PORT);
 
             DB db = mongoClient.getDB("trazabilidad");
-
+            
             DBCollection coll = db.getCollection("registroLlegada");
-
+            a.setQr(generateQR(a));
             DBObject doc = new BasicDBObject("qrProducto", a.getQrProducto())
                     .append("embotellador", a.getEmbotellador())
                     .append("fecha", a.getFecha())
                     .append("comentarios", a.getComentarios())
+                    .append("qr",a.getQr())
                     .append("vendido", 0);
-
             coll.insert(doc);
 
         } catch (Exception e) {
@@ -76,12 +76,7 @@ public class RegistroLlegadaDAO {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 RegistroLlegada c = gson.fromJson(doc.toJson(), RegistroLlegada.class);
-                System.out.println(c.getQrProducto());
-                System.out.println(c.getEmbotellador());
-                System.out.println(c.getFecha());
-                System.out.println(c.getComentarios());
-                System.out.println(c.getVendido());
-                empMap.put(c.getFecha(), c);
+                empMap.put(c.getQr(), c);
             }
 
         } finally {
@@ -101,13 +96,13 @@ public class RegistroLlegadaDAO {
         MongoDatabase database = mongoClient.getDatabase("trazabilidad");
 
         MongoCollection<Document> collection = database.getCollection("registroLlegada");
-        MongoCursor<Document> cursor  = collection.find(eq("qrProducto", emp.getQrProducto())).projection(Projections.excludeId()).iterator();
+        MongoCursor<Document> cursor  = collection.find(eq("qr", emp.getQr())).projection(Projections.excludeId()).iterator();
         try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
                 RegistroLlegada c = gson.fromJson(doc.toJson(), RegistroLlegada.class);
-                empMap.put(c.getQrProducto(), c);
+                empMap.put(c.getQr(), c);
             }
 
         } finally {
@@ -121,4 +116,19 @@ public class RegistroLlegadaDAO {
 
     }
 
+     
+     public String generateQR(RegistroLlegada a) throws UnknownHostException {
+        do {
+
+            int ramdon = (int) Math.floor(Math.random() * 1000)+7000;
+            String qr = String.valueOf(ramdon);
+            a.setQr(qr);
+
+            List<RegistroLlegada> lis = showOne(a);
+
+            if (lis.isEmpty()) {
+                return qr;
+            }
+        } while (true);
+    }
 }

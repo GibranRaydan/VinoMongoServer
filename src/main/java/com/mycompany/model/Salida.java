@@ -17,17 +17,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Salida {
     
+    String codigo;
     String qr;
 
     public Salida() {
     }
 
-    public Salida(String qr) {
-      
-        this.qr = qr;
+    public String getCodigo() {
+        return codigo;
     }
 
-   
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
     public String getQr() {
         return qr;

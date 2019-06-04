@@ -47,8 +47,10 @@ public class SalidaServicio {
         SalidaDAO m = new SalidaDAO();
         Salida emp = new Salida();
         emp.setQr(qr);
-        System.out.println("no este");
         List<Salida> listOfMercancias = m.showOne(emp);
+        if(listOfMercancias.isEmpty()){
+            return null;
+        }
         return listOfMercancias.get(0);
     }
 

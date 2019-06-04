@@ -44,11 +44,11 @@ public class SalidaDAO {
             MongoClient mongoClient = new MongoClient(HOST, PORT);
 
             DB db = mongoClient.getDB("trazabilidad");
-
+            a.setQr(generateQR(a));
             DBCollection coll = db.getCollection("salida");
             
 
-            DBObject doc = new BasicDBObject("qr", a.getQr());
+            DBObject doc = new BasicDBObject("qr", a.getQr()).append("codigo", a.getCodigo());
 
             coll.insert(doc);
 
@@ -73,10 +73,7 @@ public class SalidaDAO {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 Gson gson = new Gson();
-                Salida c = gson.fromJson(doc.toJson(), Salida.class);
-             
-                System.out.println(c.getQr());
-                
+                Salida c = gson.fromJson(doc.toJson(), Salida.class);              
            
             }
 
@@ -115,6 +112,19 @@ public class SalidaDAO {
         return list;
 
     }
-     
+     public String generateQR(Salida a) throws UnknownHostException {
+        do {
+
+            int ramdon = (int) Math.floor(Math.random() * 1000)+8000;
+            String qr = String.valueOf(ramdon);
+            a.setQr(qr);
+
+            List<Salida> lis = showOne(a);
+
+            if (lis.isEmpty()) {
+                return qr;
+            }
+        } while (true);
+    }
     
 }
